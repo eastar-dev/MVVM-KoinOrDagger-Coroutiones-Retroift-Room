@@ -1,0 +1,43 @@
+<resources>
+    <dimen name="activity_margin">32dp</dimen>
+    <dimen name="margin">16dp</dimen>
+    <dimen name="space">8dp</dimen>
+    <dimen name="h1">22sp</dimen>
+    <dimen name="h2">19sp</dimen>
+    <dimen name="h3">17sp</dimen>
+    <dimen name="h4">15sp</dimen>
+    <dimen name="h5">12sp</dimen>
+
+    <style name="BTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
+    <style name="BTheme.Splash">
+        <item name="android:windowBackground">@color/primary</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="BTheme.Transparent">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="BTheme.Transparent.Dialog">
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="BTheme.Dialog">
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="BTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

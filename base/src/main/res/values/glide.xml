@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="glide_normal" type="id" />
+    <item name="glide_press" type="id" />
+    <item name="glide_checked" type="id" />
+    <item name="glide_top" type="id" />
+    <item name="glide_left" type="id" />
+    <item name="glide_right" type="id" />
+    <item name="glide_bottom" type="id" />
+</resources>
+
+

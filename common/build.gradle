@@ -1,0 +1,102 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        dataBinding {
+            enabled = true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            resValue("string", "PORT_NUMBER", "8081")
+        }
+    }
+
+}
+
+
+tasks.whenTaskAdded { task ->
+    if (task.name == '_createFullJarDebugMove') {
+        task.dependsOn 'createFullJarDebug'
+    }
+}
+task _createFullJarDebugMove(type: Copy) {
+    from('build/intermediates/full_jar/debug/createFullJarDebug/')
+    into('../base/libs')
+    include('full.jar')
+    rename('full.jar', 'common.jar')
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == '_createFullJarReleaseMove') {
+        task.dependsOn 'createFullJarRelease'
+    }
+}
+task _createFullJarReleaseMove(type: Copy) {
+    from('build/intermediates/full_jar/release/createFullJarRelease/')
+    into('../base/libs')
+    include('full.jar')
+    rename('full.jar', 'common.jar')
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    testImplementation 'junit:junit:4.12'
+
+    //androidx
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.work:work-runtime:2.0.1'
+
+    //stetho
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+    implementation 'com.facebook.stetho:stetho-js-rhino:1.5.1'
+
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //volley
+    implementation 'com.android.volley:volley:1.1.0'
+
+    //rx
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'// rxjava
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'// rxandroid
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'// rxandroid
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'jp.wasabeef:glide-transformations:3.3.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+
+    //EastarLog
+    debugImplementation 'com.github.djrain:EastarLog:3.0.5'
+    releaseImplementation 'com.github.djrain:EastarLogNoOp:3.0.5'
+}
