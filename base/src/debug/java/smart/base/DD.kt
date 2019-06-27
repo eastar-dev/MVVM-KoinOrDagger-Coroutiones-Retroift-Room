@@ -5,7 +5,6 @@ import android.base.BD
 import android.content.Context
 import android.log.Log
 import android.retrofit.Logger
-import android.webkit.CookieManager
 import android.webkit.WebView
 import androidx.core.app.NotificationCompat
 import com.facebook.stetho.Stetho
@@ -21,35 +20,18 @@ class DD : BD() {
             //@formatter:off
             PASS = true
             LOG = true
-            NET = true
-//            DEVELOP = true
-
-//            LIFELOG = true
-            _OUT_1 = true
-//            _OUT_2 = true
-//            _OUT_3 = true
-//            _OUT_H = true
-            _OUT_C = true
-            _IN_1 = true
-            _IN_2 = true
-//            _IN_3 = true
-//            _IN_H = true
-            _IN_C = true
-
             Log.LOG = LOG
-
-            Logger.LOG = NET
-            Logger._POJO = _POJO
-            Logger._OUT_1 = _OUT_1
-            Logger._OUT_2 = _OUT_2
-            Logger._OUT_3 = _OUT_3
-            Logger._OUT_H = _OUT_H
-            Logger._OUT_C = _OUT_C
-            Logger._IN_1 = _IN_1
-            Logger._IN_2 = _IN_2
-            Logger._IN_3 = _IN_3
-            Logger._IN_H = _IN_H
-            Logger._IN_C = _IN_C
+            Logger.LOG = true
+            Logger._OUT_1 = true
+//            Logger._OUT_2 = true
+//            Logger._OUT_3 = true
+//            Logger._OUT_H = true
+            Logger._OUT_C = true
+            Logger._IN_1 = true
+            Logger._IN_2 = true
+//            Logger._IN_3 = true
+//            Logger._IN_H = true
+            Logger._IN_C = true
             //@formatter:on
         }
 
@@ -83,18 +65,17 @@ class DD : BD() {
 //            Log.e("_IN_H         ", Net._IN_H)
 //            Log.e("_IN_C         ", Net._IN_C)
 
-            Log.e("NET.LOG       ", Logger.LOG)
-            Log.e("NET._POJO     ", Logger._POJO)
-            Log.e("_OUT_1        ", Logger._OUT_1)
-            Log.e("_OUT_2        ", Logger._OUT_2)
-            Log.e("_OUT_3        ", Logger._OUT_3)
-            Log.e("_OUT_H        ", Logger._OUT_H)
-            Log.e("_OUT_C        ", Logger._OUT_C)
-            Log.e("_IN_1         ", Logger._IN_1)
-            Log.e("_IN_2         ", Logger._IN_2)
-            Log.e("_IN_3         ", Logger._IN_3)
-            Log.e("_IN_H         ", Logger._IN_H)
-            Log.e("_IN_C         ", Logger._IN_C)
+            Log.e("Logger.LOG       ", Logger.LOG)
+            Log.e("Logger._OUT_1        ", Logger._OUT_1)
+            Log.e("Logger._OUT_2        ", Logger._OUT_2)
+            Log.e("Logger._OUT_3        ", Logger._OUT_3)
+            Log.e("Logger._OUT_H        ", Logger._OUT_H)
+            Log.e("Logger._OUT_C        ", Logger._OUT_C)
+            Log.e("Logger._IN_1         ", Logger._IN_1)
+            Log.e("Logger._IN_2         ", Logger._IN_2)
+            Log.e("Logger._IN_3         ", Logger._IN_3)
+            Log.e("Logger._IN_H         ", Logger._IN_H)
+            Log.e("Logger._IN_C         ", Logger._IN_C)
 
             //@formatter:on
         }

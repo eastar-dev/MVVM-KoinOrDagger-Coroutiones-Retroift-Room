@@ -156,7 +156,6 @@ class Logger : Interceptor {
 
     companion object {
         var LOG = false
-        var _POJO = false
         var _OUT_1 = false
         var _OUT_2 = false
         var _OUT_3 = false

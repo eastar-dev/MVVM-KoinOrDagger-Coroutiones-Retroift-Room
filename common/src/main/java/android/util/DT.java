@@ -14,8 +14,6 @@ import java.util.Locale;
 @SuppressLint("SimpleDateFormat")
 public class DT {
 
-
-
     public static final long TIMEGAP = +32400000L;
     public static final long DAY1 = 86400000L;
 
