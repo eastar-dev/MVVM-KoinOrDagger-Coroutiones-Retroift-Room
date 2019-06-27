@@ -1,9 +1,11 @@
 package dev.eastar.branch.data
 
+import android.content.SharedPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.dsl.module
+import org.koin.java.KoinJavaComponent.inject
 import smart.base.PP
 
 interface BranchRepository {
@@ -14,7 +16,8 @@ interface BranchRepository {
 
 class BranchRepositoryImpl(
         private val branchNetSource: BranchService,
-        private val branchDBSource: BranchDao
+        private val branchDBSource: BranchDao,
+        private val preferencesSource: PP
 ) : BranchRepository {
     init {
         initBranchs()
@@ -96,5 +99,5 @@ val BranchEntity.icon: String
 */
 
 val repositoryModule = module {
-    single<BranchRepository> { BranchRepositoryImpl(get(), get()) }
+    single<BranchRepository> { BranchRepositoryImpl(get(), get(), get()) }
 }
