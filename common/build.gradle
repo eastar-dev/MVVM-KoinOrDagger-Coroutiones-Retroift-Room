@@ -33,30 +33,6 @@ android {
 }
 
 
-tasks.whenTaskAdded { task ->
-    if (task.name == '_createFullJarDebugMove') {
-        task.dependsOn 'createFullJarDebug'
-    }
-}
-task _createFullJarDebugMove(type: Copy) {
-    from('build/intermediates/full_jar/debug/createFullJarDebug/')
-    into('../base/libs')
-    include('full.jar')
-    rename('full.jar', 'common.jar')
-}
-
-tasks.whenTaskAdded { task ->
-    if (task.name == '_createFullJarReleaseMove') {
-        task.dependsOn 'createFullJarRelease'
-    }
-}
-task _createFullJarReleaseMove(type: Copy) {
-    from('build/intermediates/full_jar/release/createFullJarRelease/')
-    into('../base/libs')
-    include('full.jar')
-    rename('full.jar', 'common.jar')
-}
-
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
@@ -99,4 +75,29 @@ dependencies {
     //EastarLog
     debugImplementation 'com.github.djrain:EastarLog:3.0.5'
     releaseImplementation 'com.github.djrain:EastarLogNoOp:3.0.5'
+}
+
+
+tasks.whenTaskAdded { task ->
+    if (task.name == '_createFullJarDebugMove') {
+        task.dependsOn 'createFullJarDebug'
+    }
+}
+task _createFullJarDebugMove(type: Copy) {
+    from('build/intermediates/full_jar/debug/createFullJarDebug/')
+    into('../base/libs')
+    include('full.jar')
+    rename('full.jar', 'common.jar')
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == '_createFullJarReleaseMove') {
+        task.dependsOn 'createFullJarRelease'
+    }
+}
+task _createFullJarReleaseMove(type: Copy) {
+    from('build/intermediates/full_jar/release/createFullJarRelease/')
+    into('../base/libs')
+    include('full.jar')
+    rename('full.jar', 'common.jar')
 }
