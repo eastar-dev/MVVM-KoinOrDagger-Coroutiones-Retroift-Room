@@ -3,6 +3,7 @@
 package android.util
 
 import android.app.PendingIntent
+import android.content.ClipData
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
@@ -10,10 +11,12 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.preference.PreferenceManager
 import android.telephony.TelephonyManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.AttrRes
 import androidx.annotation.RawRes
 import androidx.annotation.StringRes
 import androidx.core.content.pm.PackageInfoCompat
@@ -21,6 +24,7 @@ import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.net.URISyntaxException
+import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
@@ -181,3 +185,54 @@ var keep = 0L
 private val Long.r: String get() = String.format(Locale.getDefault(), "%,25d", this)
 fun nano() = (if (keep == 0L) 0L else System.nanoTime() - keep).r.also { keep = System.nanoTime() }
 fun sano() = 0L.r.also { keep = System.nanoTime() }
+
+fun String.limitByte(length: Int, charset: Charset): String? {
+    val count = this byteSize charset
+    if (count > length)
+        return substring(0, String(toByteArray(charset), 0, length, charset).length)
+    return this
+}
+
+infix fun String.byteSize(charset: Charset) = toByteArray(charset).size
+
+fun Context.getResourceId(@AttrRes resid: Int): Int {
+    val out = TypedValue()
+    theme.resolveAttribute(resid, out, true)
+    return out.resourceId
+}
+
+infix fun CharSequence.starmark(length: Int) = CharArray(length).fill('●').toString()
+val CharSequence.starmark get() = if (isEmpty()) "" else this starmark length
+
+val InputStream.text get() = bufferedReader().use { it.readText() }
+
+fun String.phoneNumberFormater(): String? {
+    return "^(0(?:505|70|10|11|16|17|18|19))(\\d{3}|\\d{0,4})(\\d*)$".toRegex().matchEntire(onlyNumber)?.run {
+        groupValues.drop(1).reduce { l, r -> "$l-$r" }
+    }
+}
+
+infix fun Uri.removeQuery(removeQuery: String) =
+        buildUpon().clearQuery()
+                .query(query.split('&')
+                        .filterNot { it.startsWith("$removeQuery=") }
+                        .reduce { l, r -> "$l&$r" })
+                .build()
+
+val CharSequence.onlyNumber get() = replace("\\D".toRegex(), "")
+
+/**"(\\d{3})(\\d{0,6})(\\d*)"*/
+infix fun CharSequence.accctformat(deviderRegex: Regex) = deviderRegex.matchEntire(onlyNumber)?.run { groupValues.drop(1).reduce { l, r -> "$l-$r" } }
+
+infix fun CharSequence.accctformat(devider: String) = accctformat(devider.toRegex())
+//"KSC5601"
+
+val SDK_INT = Build.VERSION.SDK_INT
+
+infix fun Context.copy(text: CharSequence) {
+    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+    clipboard.primaryClip = ClipData.newPlainText(text, text)
+    toast("복사 하였습니다.")
+}
+
+
