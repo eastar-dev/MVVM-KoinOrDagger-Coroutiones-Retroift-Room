@@ -4,8 +4,8 @@ import kotlinx.coroutines.Deferred
 import org.koin.dsl.module
 import retrofit2.Response
 import retrofit2.http.POST
-import smart.retrofit.createOkHttpClient
-import smart.retrofit.createService
+import android.retrofit.createOkHttpClient
+import android.retrofit.createService
 
 interface BranchService {
     //    @POST("/hanafn_json.jsp?company_code=01,21&radius=300&position_x=126920000&position_y=37554002")

@@ -1,4 +1,4 @@
-package smart.base;
+package android.retrofit.smart.base;
 
 import org.junit.Test;
 

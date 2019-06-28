@@ -38,11 +38,11 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
 
-    //androidx
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    //androidx
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -56,8 +56,19 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-js-rhino:1.5.1'
 
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+
     //gson
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+//    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
+//    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.2'
+
 
     //volley
     implementation 'com.android.volley:volley:1.1.0'

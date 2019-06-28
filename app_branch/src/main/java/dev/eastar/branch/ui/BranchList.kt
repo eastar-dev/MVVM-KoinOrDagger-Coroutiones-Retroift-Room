@@ -1,7 +1,6 @@
 package dev.eastar.branch.ui
 
 import android.app.Activity
-import android.content.SharedPreferences
 import android.log.Log
 import android.os.Bundle
 import android.recycler.BindingAdapter
@@ -21,8 +20,7 @@ import dev.eastar.branch.presentation.BranchViewModel
 import org.koin.android.ext.android.inject
 
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.java.KoinJavaComponent.inject
-import smart.base.BFragment
+import android.retrofit.smart.base.BFragment
 
 @Suppress("UNUSED_ANONYMOUS_PARAMETER")
 class BranchList : BFragment() {

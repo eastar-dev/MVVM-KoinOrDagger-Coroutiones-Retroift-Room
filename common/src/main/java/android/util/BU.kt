@@ -30,37 +30,35 @@ import javax.net.ssl.*
 
 object BU {
 
-    internal var out = TypedValue()
+//    fun isFirstTask(context: Context): Boolean {
+//        try {
+//
+//            val packageManager = context.packageManager as PackageManager
+//            var activity: PackageInfo? = null
+//            try {
+//                activity = packageManager.getPackageInfo(context.packageName, PackageManager.GET_ACTIVITIES)
+//            } catch (e: PackageManager.NameNotFoundException) {
+//                e.printStackTrace()
+//            }
+//
+//            val activityNames = ArrayList<String>()
+//            for (activityInfo in activity!!.activities) {
+//                activityNames.add(activityInfo.name)
+//            }
+//
+//            return activityNames.contains(getCurrentActivity(context).topActivity.className)
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//
+//        return false
+//    }
 
-    fun isFirstTask(context: Context): Boolean {
-        try {
-
-            val packageManager = context.packageManager as PackageManager
-            var activity: PackageInfo? = null
-            try {
-                activity = packageManager.getPackageInfo(context.packageName, PackageManager.GET_ACTIVITIES)
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-            }
-
-            val activityNames = ArrayList<String>()
-            for (activityInfo in activity!!.activities) {
-                activityNames.add(activityInfo.name)
-            }
-
-            return activityNames.contains(getCurrentActivity(context).topActivity.className)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        return false
-    }
-
-    fun getCurrentActivity(context: Context): ActivityManager.RunningTaskInfo {
-        val am = context.getSystemService(Activity.ACTIVITY_SERVICE) as ActivityManager
-        val taskInfo = am.getRunningTasks(1)
-        return taskInfo[0]
-    }
+//    fun getCurrentActivity(context: Context): ActivityManager.RunningTaskInfo {
+//        val am = context.getSystemService(Activity.ACTIVITY_SERVICE) as ActivityManager
+//        val taskInfo = am.getRunningTasks(1)
+//        return taskInfo[0]
+//    }
 
     @SuppressLint("MissingPermission")
     fun getLine1Number(context: Context): String {
@@ -79,29 +77,6 @@ object BU {
         return line1Number
     }
 
-    /** 유효 비밀번호 확인 */
-    fun validPass(password: String): Boolean {
-        return Pattern.compile("[a-zA-Z]").matcher(password).find()
-    }
-
-    fun getString(strValue: String, regularExpression: String, group: Int): String? {
-        val pattern = Pattern.compile(regularExpression)
-        val matcher = pattern.matcher(strValue)
-        return if (matcher.find()) {
-            matcher.group(group)
-        } else null
-    }
-
-    //"KSC5601"
-
-    val SDK_INT = Build.VERSION.SDK_INT
-
-    infix fun Context.copy(text: CharSequence) {
-        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-        clipboard.primaryClip = ClipData.newPlainText(text, text)
-        toast("복사 하였습니다.")
-    }
-
     @Throws(Exception::class)
     fun trustHttpsCertificates() {
         val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
@@ -113,7 +88,6 @@ object BU {
         val sc = SSLContext.getInstance("TLS")
         sc.init(null, trustAllCerts, SecureRandom())
         HttpsURLConnection.setDefaultSSLSocketFactory(sc.socketFactory)
-
         HttpsURLConnection.setDefaultHostnameVerifier { _: String, _: SSLSession -> true }
     }
 
@@ -128,40 +102,11 @@ object BU {
         }
     }
 
-    fun phoneNumberFormater(phoneNo: String): String? {
-        try {
-            return phoneNo.replace(BC.regularExpressionPhoneNo.toRegex(), "$1-$2-$3")
-        } catch (e: Exception) {
-            return phoneNo
-        }
-
-    }
-
-    fun format(no: String, regularExpression: String, devider: String): String? {
-        try {
-            val noadj = no.replace(BC.regularExpressionNotdecimal.toRegex(), "")
-            val pattern = Pattern.compile(regularExpression)
-            val matcher = pattern.matcher(noadj)
-            if (noadj == null || !matcher.matches())
-                return no
-
-            val N = matcher.groupCount()
-            val sb = StringBuilder()
-            for (i in 1 until N) {
-                sb.append(matcher.group(i))
-                sb.append(devider)
-            }
-            sb.append(matcher.group(N))
-            return sb.toString()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return no
-        }
-
-    }
 }
 
 class LimitByteTextWatcher @JvmOverloads constructor(val bytelength: Int, val charset: Charset, val what: Runnable? = null) : TextWatcher {
+    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
+    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
     override fun afterTextChanged(s: Editable) {
         val text = s.toString()
         val count = text byteSize charset
@@ -171,10 +116,6 @@ class LimitByteTextWatcher @JvmOverloads constructor(val bytelength: Int, val ch
         }
         what?.run()
     }
-
-    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
-
-    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
 }
 
 fun String.limitByte(length: Int, charset: Charset): String? {
@@ -187,8 +128,9 @@ fun String.limitByte(length: Int, charset: Charset): String? {
 infix fun String.byteSize(charset: Charset) = toByteArray(charset).size
 
 fun Context.getResourceId(@AttrRes resid: Int): Int {
-    theme.resolveAttribute(resid, BU.out, true)
-    return BU.out.resourceId
+    val out = TypedValue()
+    theme.resolveAttribute(resid, out, true)
+    return out.resourceId
 }
 
 infix fun CharSequence.starmark(length: Int) = CharArray(length).fill('●').toString()
@@ -196,7 +138,19 @@ val CharSequence.starmark get() = if (isEmpty()) "" else this starmark length
 
 val InputStream.text get() = bufferedReader().use { it.readText() }
 
-val CharSequence.onlyNumber get() = replace("\\D".toRegex(), "")
+//fun phoneNumberFormater(phoneNo: String): String? {
+//    try {
+//        return phoneNo.replace(BC.regularExpressionPhoneNo.toRegex(), "$1-$2-$3")
+//    } catch (e: Exception) {
+//        return phoneNo
+//    }
+//}
+
+fun String.phoneNumberFormater(): String? {
+    return "^(0(?:505|70|10|11|16|17|18|19))(\\d{3}|\\d{0,4})(\\d*)$".toRegex().matchEntire(onlyNumber)?.run {
+        groupValues.drop(1).reduce { l, r -> "$l-$r" }
+    }
+}
 
 infix fun Uri.removeQuery(removeQuery: String) =
         buildUpon().clearQuery()
@@ -204,3 +158,21 @@ infix fun Uri.removeQuery(removeQuery: String) =
                         .filterNot { it.startsWith("$removeQuery=") }
                         .reduce { l, r -> "$l&$r" })
                 .build()
+
+val CharSequence.onlyNumber get() = replace("\\D".toRegex(), "")
+
+/**"(\\d{3})(\\d{0,6})(\\d*)"*/
+infix fun CharSequence.accctformat(deviderRegex: Regex) = deviderRegex.matchEntire(onlyNumber)?.run { groupValues.drop(1).reduce { l, r -> "$l-$r" } }
+
+infix fun CharSequence.accctformat(devider: String) = accctformat(devider.toRegex())
+//"KSC5601"
+
+val SDK_INT = Build.VERSION.SDK_INT
+
+infix fun Context.copy(text: CharSequence) {
+    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+    clipboard.primaryClip = ClipData.newPlainText(text, text)
+    toast("복사 하였습니다.")
+}
+
+

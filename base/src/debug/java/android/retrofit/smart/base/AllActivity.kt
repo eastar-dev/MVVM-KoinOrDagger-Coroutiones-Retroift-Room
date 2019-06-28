@@ -1,6 +1,6 @@
 @file:Suppress("SpellCheckingInspection")
 
-package smart.base
+package android.retrofit.smart.base
 
 import android.base.CActivity
 import android.content.Intent
