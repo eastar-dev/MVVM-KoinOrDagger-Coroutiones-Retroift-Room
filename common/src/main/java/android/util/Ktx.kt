@@ -28,17 +28,14 @@ import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class Ktx
 
-val Number.dp: Int get() = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, toFloat(), Resources.getSystem().displayMetrics))
-val Number.sp: Int get() = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, toFloat(), Resources.getSystem().displayMetrics))
-val densityDpi = Resources.getSystem().displayMetrics.densityDpi
-val density = Resources.getSystem().displayMetrics.density
-val widthPixels = Resources.getSystem().displayMetrics.widthPixels
-val heightPixels = Resources.getSystem().displayMetrics.heightPixels
-val scaledDensity = Resources.getSystem().displayMetrics.scaledDensity
-val displayMetrics: DisplayMetrics = Resources.getSystem().displayMetrics
+val Number.dpf: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, toFloat(), Resources.getSystem().displayMetrics)
+val Number.spf: Float get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, toFloat(), Resources.getSystem().displayMetrics)
+val Number.dp: Int get() = dpf.roundToInt()
+val Number.sp: Int get() = dpf.roundToInt()
 
 fun Context.getResid(name: String, defType: String? = null, defPackage: String = packageName) = resources.getIdentifier(name, defType, defPackage)
 fun Context.getDrawable(name: String) = getResid(name, "drawable")
@@ -57,53 +54,25 @@ val Context.versionName: String get() = getVersionName(packageName)
 val Context.appName: String get() = getAppName(packageName)
 val Context.networkOperator: String get() = (getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager).networkOperator
 
-fun Context.rawText(@RawRes resid: Int) =
-        try {
-            val `in` = resources.openRawResource(resid)
-            val b = ByteArray(`in`.available())
-            `in`.read(b)
-            `in`.close()
-            String(b)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            ""
-        }
-
+fun Context.rawText(@RawRes resid: Int) = resources.openRawResource(resid).text
 val Context.deviceid: String
     get() = PreferenceManager.getDefaultSharedPreferences(this).run {
         getString("deviceid", null)
                 ?: java.util.UUID.randomUUID().toString().also { edit().putString("deviceid", it).apply() }
     }
 
-fun Context.getAppName(packageName: String) =
-        try {
-            packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0)).toString()
-        } catch (e: PackageManager.NameNotFoundException) {
-            packageName
-        }
+fun Context.getAppName(packageName: String) = packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0)).toString()
 
-fun Context.getVersionCode(packageName: String) =
-        try {
-            PackageInfoCompat.getLongVersionCode(packageManager.getPackageInfo(packageName, 0))
-        } catch (e: PackageManager.NameNotFoundException) {
-            -1L
-        }
+fun Context.getVersionCode(packageName: String) = PackageInfoCompat.getLongVersionCode(packageManager.getPackageInfo(packageName, 0))
 
-fun Context.getVersionName(packageName: String) =
-        try {
-            packageManager.getPackageInfo(packageName, 0).versionName
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-            "0.0.0"
-        }
+fun Context.getVersionName(packageName: String) = packageManager.getPackageInfo(packageName, 0).versionName
 
-fun Context.isInstall(packageName: String) =
-        try {
-            packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
-            true
-        } catch (e: PackageManager.NameNotFoundException) {
-            false
-        }
+fun Context.isInstall(packageName: String) = try {
+    packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+    true
+} catch (e: PackageManager.NameNotFoundException) {
+    false
+}
 
 val CharSequence.sha256: () -> String
     get() = {
@@ -152,20 +121,12 @@ fun TextView.check(): Boolean {
     return true
 }
 
-fun Bitmap.toStream(quality: Int): InputStream {
+fun Bitmap.toJpegStream(quality: Int = 100): InputStream {
     val bos = ByteArrayOutputStream()
     compress(Bitmap.CompressFormat.JPEG, quality, bos)
     val bytes = bos.toByteArray()
     return ByteArrayInputStream(bytes)
 }
-
-val Bitmap.jpegstream: InputStream
-    get() {
-        val bos = ByteArrayOutputStream()
-        compress(Bitmap.CompressFormat.JPEG, 100, bos)
-        val bytes = bos.toByteArray()
-        return ByteArrayInputStream(bytes)
-    }
 
 val Long.toTimeText: String get() = SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.getDefault()).format(this)
 fun Long.tlog() = android.log.Log.pn(Log.ERROR, 1, toTimeText)
@@ -181,10 +142,9 @@ fun Long.stripTime() = Calendar.getInstance().apply {
 private const val DAY1 = 86400000L
 val Long.stripTime: Long get() = ((this + TimeZone.getDefault().rawOffset) / DAY1 * DAY1) - TimeZone.getDefault().rawOffset
 
-var keep = 0L
-private val Long.r: String get() = String.format(Locale.getDefault(), "%,25d", this)
-fun nano() = (if (keep == 0L) 0L else System.nanoTime() - keep).r.also { keep = System.nanoTime() }
-fun sano() = 0L.r.also { keep = System.nanoTime() }
+val Number.comma: String get() = String.format(Locale.getDefault(), "%,25d", this)
+private var keep = 0L
+fun nano() = (System.nanoTime() - keep).comma.also { keep = System.nanoTime() }
 
 fun String.limitByte(length: Int, charset: Charset): String? {
     val count = this byteSize charset
@@ -201,31 +161,39 @@ fun Context.getResourceId(@AttrRes resid: Int): Int {
     return out.resourceId
 }
 
-infix fun CharSequence.starmark(length: Int) = CharArray(length).fill('●').toString()
-val CharSequence.starmark get() = if (isEmpty()) "" else this starmark length
+infix fun CharSequence.masking(length: Int) = CharArray(length).fill('●').toString()
+val CharSequence.masking get() = this masking length
 
 val InputStream.text get() = bufferedReader().use { it.readText() }
 
 fun String.phoneNumberFormater(): String? {
-    return "^(0(?:505|70|10|11|16|17|18|19))(\\d{3}|\\d{0,4})(\\d*)$".toRegex().matchEntire(onlyNumber)?.run {
-        groupValues.drop(1).reduce { l, r -> "$l-$r" }
-    }
+    return "^(0(?:505|70|10|11|16|17|18|19))(\\d{3}|\\d{0,4})(\\d*)$".toRegex()
+            .matchEntire(onlyNumber)
+            ?.run {
+                groupValues
+                        .drop(1)
+                        .takeIf { it.isNotEmpty() }
+                        ?.reduce { l, r -> "$l-$r" }
+            } ?: this@phoneNumberFormater
 }
 
 infix fun Uri.removeQuery(removeQuery: String) =
         buildUpon().clearQuery()
                 .query(query.split('&')
                         .filterNot { it.startsWith("$removeQuery=") }
-                        .reduce { l, r -> "$l&$r" })
+                        .takeIf { it.isNotEmpty() }
+                        ?.reduce { l, r -> "$l&$r" })
                 .build()
 
 val CharSequence.onlyNumber get() = replace("\\D".toRegex(), "")
-
-/**"(\\d{3})(\\d{0,6})(\\d*)"*/
-infix fun CharSequence.accctformat(deviderRegex: Regex) = deviderRegex.matchEntire(onlyNumber)?.run { groupValues.drop(1).reduce { l, r -> "$l-$r" } }
-
-infix fun CharSequence.accctformat(devider: String) = accctformat(devider.toRegex())
-//"KSC5601"
+/**"1234567890" accctformat "(\\d{3})(\\d{0,6})(\\d*)"  -> 123-456789-0*/
+infix fun CharSequence.accctformat(deviderRegex: Regex) = deviderRegex.matchEntire(onlyNumber)
+        ?.run {
+            groupValues
+                    .drop(1)
+                    .takeIf { it.isNotEmpty() }
+                    ?.reduce { l, r -> "$l-$r" }
+        } ?: this@accctformat
 
 val SDK_INT = Build.VERSION.SDK_INT
 

@@ -1,6 +1,16 @@
 package android.base
 
+import android.content.res.Resources
+import android.util.DisplayMetrics
+
 object BC {
+    val densityDpi = Resources.getSystem().displayMetrics.densityDpi
+    val density = Resources.getSystem().displayMetrics.density
+    val widthPixels = Resources.getSystem().displayMetrics.widthPixels
+    val heightPixels = Resources.getSystem().displayMetrics.heightPixels
+    val scaledDensity = Resources.getSystem().displayMetrics.scaledDensity
+    val displayMetrics: DisplayMetrics = Resources.getSystem().displayMetrics
+
     const val LENGTH_resRegNo = 13
     /** 메일주소 인것  */
     const val regularExpressionEmail = "^([\\w-\\.]+)@((?:[\\w]+\\.)+[a-zA-Z]{2,4})$"
