@@ -204,3 +204,13 @@ infix fun Context.copy(text: CharSequence) {
 }
 
 
+fun Context.startMain() =
+        Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_LAUNCHER)
+            `package` = packageName
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }.also {
+            startActivity(it)
+        }
+
+
