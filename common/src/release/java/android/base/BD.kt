@@ -1,6 +1,6 @@
 package android.base
 
-open class BD {
+class BD {
     companion object {
         val LOG = false
         val DEVELOP = false

@@ -12,7 +12,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle
 
-typealias CH = Any
+class CHelper
 
 fun CFragment.showProgress() = (requireActivity() as CActivity).showProgress()
 fun CFragment.dismissProgress() = (requireActivity() as CActivity).dismissProgress()

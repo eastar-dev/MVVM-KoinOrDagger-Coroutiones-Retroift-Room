@@ -57,8 +57,7 @@ val Context.networkOperator: String get() = (getSystemService(Context.TELEPHONY_
 fun Context.rawText(@RawRes resid: Int) = resources.openRawResource(resid).text
 val Context.deviceid: String
     get() = PreferenceManager.getDefaultSharedPreferences(this).run {
-        getString("deviceid", null)
-                ?: java.util.UUID.randomUUID().toString().also { edit().putString("deviceid", it).apply() }
+        getString("__deviceid", null) ?: UUID.randomUUID().toString().also { edit().putString("__deviceid", it).apply() }
     }
 
 fun Context.getAppName(packageName: String) = packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0)).toString()
@@ -139,7 +138,7 @@ fun Long.stripTime() = Calendar.getInstance().apply {
     set(Calendar.MILLISECOND, 0)
 }.timeInMillis
 
-private const val DAY1 = 86400000L
+val DAY1 = 86400000L
 val Long.stripTime: Long get() = ((this + TimeZone.getDefault().rawOffset) / DAY1 * DAY1) - TimeZone.getDefault().rawOffset
 
 val Number.comma: String get() = String.format(Locale.getDefault(), "%,25d", this)
@@ -203,7 +202,6 @@ infix fun Context.copy(text: CharSequence) {
     toast("복사 하였습니다.")
 }
 
-
 fun Context.startMain() =
         Intent(Intent.ACTION_MAIN).apply {
             addCategory(Intent.CATEGORY_LAUNCHER)
@@ -212,5 +210,4 @@ fun Context.startMain() =
         }.also {
             startActivity(it)
         }
-
 
