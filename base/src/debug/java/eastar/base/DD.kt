@@ -1,7 +1,7 @@
 package eastar.base
 
 import android.app.NotificationManager
-import android.base.BD
+import android.base.CD
 import android.content.Context
 import android.log.Log
 import android.retrofit.Logger
@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat
 import com.facebook.stetho.Stetho
 import java.io.File
 
-class DD : BD() {
+class DD {
     companion object {
         @JvmField
         var PHONENUMBER: String = ""
@@ -18,9 +18,11 @@ class DD : BD() {
         @JvmStatic
         fun attachBaseContext() {
             //@formatter:off
-            PASS = true
-            LOG = true
-            Log.LOG = LOG
+            CD.PASS = true
+            CD.LOG = true
+            CD.DEVELOP = true
+            CD.LIFELOG = true
+
             Logger.LOG = true
             Logger._OUT_1 = true
 //            Logger._OUT_2 = true
@@ -49,9 +51,9 @@ class DD : BD() {
 
         private fun logInfo() {
             //@formatter:off
-            Log.e("PASS          ", PASS)
-            Log.e("DEVELOP       ", DEVELOP)
-            Log.e("LOG           ", Log.LOG)
+            Log.e("PASS          ", CD.PASS)
+            Log.e("DEVELOP       ", CD.DEVELOP)
+            Log.e("LOG           ", CD.LOG)
 //            Log.e("NET.LOG       ", Net.LOG)
 //            Log.e("NET._POJO     ", Net._POJO)
 //            Log.e("_OUT_1        ", Net._OUT_1)
@@ -144,7 +146,7 @@ class DD : BD() {
         }
 
         private fun setWebContentsDebuggingEnabled() {
-            if (LOG)
+            if (CD.LOG || CD.DEVELOP)
                 WebView.setWebContentsDebuggingEnabled(true)
         }
 
