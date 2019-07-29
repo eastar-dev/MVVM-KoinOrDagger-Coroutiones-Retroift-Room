@@ -2,6 +2,6 @@
     package="dev.eastar.base">
 
     <application>
-        <activity android:name="android.retrofit.smart.base.AllActivity" />
+        <activity android:name="smart.base.AllActivity" />
     </application>
 </manifest>

@@ -4,7 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.dsl.module
-import android.retrofit.smart.base.PP
+import smart.base.PP
 
 interface BranchRepository {
     suspend fun getBranchs(): List<BranchEntity>

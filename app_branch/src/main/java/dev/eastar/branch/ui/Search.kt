@@ -17,7 +17,7 @@ import dev.eastar.branch.databinding.BranchListBinding
 import dev.eastar.branch.databinding.BranchListItemBinding
 import dev.eastar.branch.presentation.BranchViewModel
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import android.retrofit.smart.base.BFragment
+import smart.base.BFragment
 
 @Suppress("UNUSED_ANONYMOUS_PARAMETER")
 class Search : BFragment() {

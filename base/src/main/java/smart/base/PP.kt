@@ -1,6 +1,6 @@
 @file:Suppress("unused", "SpellCheckingInspection", "MemberVisibilityCanBePrivate", "FunctionName", "UNUSED_PARAMETER")
 
-package android.retrofit.smart.base
+package smart.base
 
 import android.content.Context
 import android.content.SharedPreferences

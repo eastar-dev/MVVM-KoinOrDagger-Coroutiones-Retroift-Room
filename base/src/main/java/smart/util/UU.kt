@@ -1,4 +1,4 @@
-package android.retrofit.smart.util
+package smart.util
 
 import android.content.Context
 

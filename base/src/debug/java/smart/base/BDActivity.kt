@@ -1,6 +1,6 @@
 @file:Suppress("LocalVariableName")
 
-package android.retrofit.smart.base
+package smart.base
 
 import android.app.Activity
 import android.base.CActivity

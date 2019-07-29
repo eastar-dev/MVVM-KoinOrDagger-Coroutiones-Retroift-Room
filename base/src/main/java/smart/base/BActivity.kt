@@ -1,4 +1,4 @@
-package android.retrofit.smart.base
+package smart.base
 
 open class BActivity : BDActivity()
 
