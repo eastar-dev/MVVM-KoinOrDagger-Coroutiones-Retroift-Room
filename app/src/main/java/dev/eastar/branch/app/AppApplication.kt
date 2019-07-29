@@ -3,7 +3,7 @@ package dev.eastar.branch.app
 import android.content.Context
 import android.log.Log
 import dev.eastar.branch.base.startBranchKoin
-import smart.base.BApplication
+import eastar.base.BApplication
 
 class AppApplication : BApplication() {
     override fun attachBaseContext(base: Context) {

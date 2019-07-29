@@ -7,7 +7,7 @@ import android.log.logActivity
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 
-open class CApplication : Application() {
+abstract class CApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 

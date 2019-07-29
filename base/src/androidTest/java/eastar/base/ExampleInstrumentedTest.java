@@ -1,4 +1,4 @@
-package smart.base;
+package eastar.base;
 
 import android.content.Context;
 

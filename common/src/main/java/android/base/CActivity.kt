@@ -8,7 +8,7 @@ import androidx.lifecycle.Lifecycle
 import java.util.*
 import kotlin.properties.Delegates
 
-open class CActivity : AppCompatActivity(), Observer {
+abstract class CActivity : AppCompatActivity(), Observer {
 
     lateinit var mActivity: CActivity
     lateinit var mContext: Context

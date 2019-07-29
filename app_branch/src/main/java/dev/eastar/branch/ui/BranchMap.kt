@@ -19,7 +19,7 @@ import dev.eastar.branch.presentation.BranchViewModel
 import dev.eastar.permission.PermissionRequest
 import net.daum.mf.map.api.*
 import org.koin.android.viewmodel.ext.android.getSharedViewModel
-import smart.base.BFragment
+import eastar.base.BFragment
 
 class BranchMap : BFragment() {
     @Suppress("NonAsciiCharacters", "ObjectPropertyName")

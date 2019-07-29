@@ -1,7 +1,6 @@
-package smart.base
+package eastar.base
 
-open class BApplication : BDApplication() {
-
+abstract class BApplication : BDApplication() {
     override fun onCreate() {
         super.onCreate()
         PP.CREATE(applicationContext)

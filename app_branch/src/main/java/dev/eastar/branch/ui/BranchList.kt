@@ -20,7 +20,7 @@ import dev.eastar.branch.presentation.BranchViewModel
 import org.koin.android.ext.android.inject
 
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import smart.base.BFragment
+import eastar.base.BFragment
 
 @Suppress("UNUSED_ANONYMOUS_PARAMETER")
 class BranchList : BFragment() {

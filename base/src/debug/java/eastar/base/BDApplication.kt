@@ -1,9 +1,9 @@
-package smart.base
+package eastar.base
 
 import android.base.CApplication
 import android.content.Context
 
-open class BDApplication : CApplication() {
+abstract class BDApplication : CApplication() {
 
     override fun attachBaseContext(base: Context) {
         DD.attachBaseContext()

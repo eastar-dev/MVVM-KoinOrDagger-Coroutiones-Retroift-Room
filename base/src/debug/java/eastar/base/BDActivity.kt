@@ -1,6 +1,6 @@
 @file:Suppress("LocalVariableName")
 
-package smart.base
+package eastar.base
 
 import android.app.Activity
 import android.base.CActivity
@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import java.util.*
 
-open class BDActivity : CActivity() {
+abstract class BDActivity : CActivity() {
     override fun onStart() {
         super.onStart()
         try {

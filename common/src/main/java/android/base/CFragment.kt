@@ -8,7 +8,7 @@ import androidx.lifecycle.Lifecycle
 import java.util.*
 
 @Suppress("unused")
-open class CFragment : Fragment(), Observer {
+abstract class CFragment : Fragment(), Observer {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         EventObserver.addObserver(this)

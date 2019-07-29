@@ -2,6 +2,6 @@
     package="dev.eastar.base">
 
     <application>
-        <activity android:name="smart.base.AllActivity" />
+        <activity android:name="eastar.base.AllActivity" />
     </application>
 </manifest>

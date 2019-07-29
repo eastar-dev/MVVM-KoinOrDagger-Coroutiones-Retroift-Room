@@ -1,4 +1,4 @@
-package smart.util
+package eastar.util
 
 import android.content.Context
 

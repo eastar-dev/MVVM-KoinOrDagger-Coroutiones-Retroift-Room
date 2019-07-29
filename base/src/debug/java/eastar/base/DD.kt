@@ -1,4 +1,4 @@
-package smart.base
+package eastar.base
 
 import android.app.NotificationManager
 import android.base.BD
