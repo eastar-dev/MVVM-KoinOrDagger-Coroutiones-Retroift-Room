@@ -1,8 +1,5 @@
-package smart.base
+package eastar.base
 
 import android.base.CApplication
-import android.content.Context
 
-abstract class BDApplication : CApplication() {
-
-}
+abstract class BDApplication : CApplication()
