@@ -178,13 +178,15 @@ fun String.phoneNumberFormater(): String? {
 
 infix fun Uri.removeQuery(removeQuery: String) =
         buildUpon().clearQuery()
-                .query(query.split('&')
-                        .filterNot { it.startsWith("$removeQuery=") }
-                        .takeIf { it.isNotEmpty() }
-                        ?.reduce { l, r -> "$l&$r" })
-                .build()
+                .query(query?.run {
+                    split('&')
+                            .filterNot { it.startsWith("$removeQuery=") }
+                            .takeIf { it.isNotEmpty() }
+                            ?.reduce { l, r -> "$l&$r" }
+                }).build()
 
 val CharSequence.onlyNumber get() = replace("\\D".toRegex(), "")
+
 /**"1234567890" accctformat "(\\d{3})(\\d{0,6})(\\d*)"  -> 123-456789-0*/
 infix fun CharSequence.accctformat(deviderRegex: Regex) = deviderRegex.matchEntire(onlyNumber)
         ?.run {
