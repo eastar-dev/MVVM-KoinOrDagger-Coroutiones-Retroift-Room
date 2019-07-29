@@ -7,28 +7,27 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.readystatesoftware.chuck.ChuckInterceptor
 import okhttp3.*
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 fun createOkHttpClient(context: Context): OkHttpClient {
+
     return OkHttpClient.Builder()
             .connectTimeout(10L, TimeUnit.SECONDS)
             .readTimeout(60L, TimeUnit.SECONDS)
             .writeTimeout(10L, TimeUnit.SECONDS)
             .connectionPool(ConnectionPool())
             .addNetworkInterceptor(StethoInterceptor())
-//            .addInterceptor(HttpLoggingInterceptor().apply {
-//                level = HttpLoggingInterceptor.Level.BODY
-//            })
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
             .addInterceptor(Logger())
             .addInterceptor(ChuckInterceptor(context))
             .cookieJar(object : CookieJar {
                 override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-                    for (cookie in cookies) {
-                        CookieManager.getInstance().setCookie(url.toString(), cookie.toString())
-                        Log.w(url.toString(), cookie.toString())
-                    }
+                    cookies.forEach { CookieManager.getInstance().setCookie(url.toString(), it.toString()).also { Log.w(url.toString(), it.toString()) } }
                 }
 
                 override fun loadForRequest(url: HttpUrl): List<Cookie> {
