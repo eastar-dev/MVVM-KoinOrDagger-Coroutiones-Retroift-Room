@@ -1,10 +1,3 @@
 package eastar.util
 
-import android.content.Context
-
-class UU() {
-    fun getLine1Number(context: Context) {
-
-    }
-
-}
+class UU
