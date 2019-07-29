@@ -91,26 +91,13 @@ dependencies {
     releaseImplementation 'com.github.djrain:EastarLogNoOp:3.0.5'
 }
 
-
-tasks.whenTaskAdded { task ->
-    if (task.name == '_createFullJarDebugMove') {
-        task.dependsOn 'createFullJarDebug'
-    }
-}
-task _createFullJarDebugMove(type: Copy) {
-    from('build/intermediates/full_jar/debug/createFullJarDebug/')
-    into('../base/libs')
-    include('full.jar')
-    rename('full.jar', 'common.jar')
-}
-
 tasks.whenTaskAdded { task ->
     if (task.name == '_createFullJarReleaseMove') {
         task.dependsOn 'createFullJarRelease'
     }
 }
 task _createFullJarReleaseMove(type: Copy) {
-    from('build/intermediates/full_jar/release/createFullJarRelease/')
+    from('build/intermediates/full_jar/release/')
     into('../base/libs')
     include('full.jar')
     rename('full.jar', 'common.jar')
