@@ -20,16 +20,13 @@ fun createOkHttpClient(context: Context): OkHttpClient {
             .writeTimeout(10L, TimeUnit.SECONDS)
             .connectionPool(ConnectionPool())
             .addNetworkInterceptor(StethoInterceptor())
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
+            .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC })
             .addInterceptor(Logger())
             .addInterceptor(ChuckInterceptor(context))
             .cookieJar(object : CookieJar {
                 override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
                     cookies.forEach { CookieManager.getInstance().setCookie(url.toString(), it.toString()).also { Log.w(url.toString(), it.toString()) } }
                 }
-
                 override fun loadForRequest(url: HttpUrl): List<Cookie> {
                     val cm = CookieManager.getInstance()
                     val cookies: ArrayList<Cookie> = ArrayList()
