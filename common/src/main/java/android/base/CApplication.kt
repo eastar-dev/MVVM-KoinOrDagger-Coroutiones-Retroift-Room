@@ -3,16 +3,13 @@ package android.base
 import android.app.Application
 import android.app.NotificationManager
 import android.content.Context
-import android.log.logActivity
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 
 abstract class CApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-
         showDebugDBAddressLogToast(applicationContext)
-        logActivity()
     }
 
     fun showDebugDBAddressLogToast(context: Context) {

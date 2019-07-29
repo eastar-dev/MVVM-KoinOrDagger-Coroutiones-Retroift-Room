@@ -2,6 +2,7 @@ package eastar.base
 
 import android.base.CApplication
 import android.content.Context
+import android.log.logActivity
 
 abstract class BDApplication : CApplication() {
 
@@ -13,5 +14,6 @@ abstract class BDApplication : CApplication() {
     override fun onCreate() {
         super.onCreate()
         DD.onCreate(applicationContext)
+        logActivity()
     }
 }
