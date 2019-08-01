@@ -8,11 +8,11 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
-//        ndk { abiFilters 'armeabi-v7a' }
+        useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        dataBinding {
-            enabled = true
-        }
+    }
+    dataBinding {
+        enabled = true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

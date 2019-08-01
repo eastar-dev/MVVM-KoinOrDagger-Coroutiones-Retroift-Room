@@ -3,6 +3,7 @@ package eastar.base
 import android.app.NotificationManager
 import android.base.CApplication
 import android.content.Context
+import android.log.Log
 import android.log.logActivity
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
@@ -11,6 +12,9 @@ abstract class BDApplication : CApplication() {
 
     override fun attachBaseContext(base: Context) {
         DD.attachBaseContext()
+        Log.e(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+        Log.e("시작됨>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+        Log.e(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
         super.attachBaseContext(base)
     }
 

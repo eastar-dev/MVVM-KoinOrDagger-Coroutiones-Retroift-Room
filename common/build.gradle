@@ -96,9 +96,12 @@ tasks.whenTaskAdded { task ->
         task.dependsOn 'createFullJarRelease'
     }
 }
+//3.6.x
 task _createFullJarReleaseMove(type: Copy) {
     from('build/intermediates/full_jar/release/')
     into('../base/libs')
     include('full.jar')
     rename('full.jar', 'common.jar')
 }
+
+

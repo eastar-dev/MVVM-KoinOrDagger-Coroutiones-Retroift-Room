@@ -13,7 +13,6 @@ class AppMain : AppCompatActivity() {
                     .beginTransaction()
                     .replace(android.R.id.content, BranchMain())
                     .commitNow()
-
         }
     }
 }

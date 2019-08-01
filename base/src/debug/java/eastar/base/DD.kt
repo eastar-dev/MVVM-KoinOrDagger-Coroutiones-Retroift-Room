@@ -12,9 +12,6 @@ import java.io.File
 
 class DD {
     companion object {
-        @JvmField
-        var PHONENUMBER: String = ""
-
         @JvmStatic
         fun attachBaseContext() {
             //@formatter:off

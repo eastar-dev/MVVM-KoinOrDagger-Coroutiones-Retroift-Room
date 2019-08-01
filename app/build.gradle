@@ -11,9 +11,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        ndk { abiFilters "armeabi-v7a" }
     }
     dataBinding {
         enabled = true
@@ -56,5 +54,4 @@ dependencies {
 
     implementation project(':base')
     implementation project(':app_branch')
-
 }

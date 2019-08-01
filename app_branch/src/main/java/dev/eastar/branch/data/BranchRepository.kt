@@ -1,10 +1,10 @@
 package dev.eastar.branch.data
 
+import eastar.base.PP
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.dsl.module
-import eastar.base.PP
 
 interface BranchRepository {
     suspend fun getBranchs(): List<BranchEntity>
@@ -31,15 +31,12 @@ class BranchRepositoryImpl(
             val address1 = mutableSetOf<String?>()
             val address2 = mutableSetOf<String?>()
 
-            val branchsForDb = items.flatMap {
-                listOf(BranchEntity(it.id
+            val branchsForDb = items.map {
+                BranchEntity(it.id
                         , it.search_type
                         , it.company_name
                         , it.name
-                        , it.address.apply {
-                    address1.add(this?.split(' ')?.get(0))
-                    address2.add(this?.split(' ')?.get(1))
-                }
+                        , it.address
                         , it.address?.split(' ')?.get(0)
                         , it.address?.split(' ')?.get(1)
                         , it.driving_directions
@@ -52,7 +49,7 @@ class BranchRepositoryImpl(
                         , it.mgr_name
                         , it.mgr_tel
                         , toWGS84(it.position_y)
-                        , toWGS84(it.position_x)))
+                        , toWGS84(it.position_x))
             }.toTypedArray()
                     .also {
                         it.forEach {
