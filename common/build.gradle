@@ -59,7 +59,6 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-js-rhino:1.5.1'
 
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
-
     //gson
     implementation 'com.google.code.gson:gson:2.8.5'
 

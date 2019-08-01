@@ -6,13 +6,23 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+
 class LifeCycleLog
 
 fun Application.logActivity() = registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
-    override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) = logFragment(activity?.also { Log.e(activity.javaClass) })
-    override fun onActivityDestroyed(activity: Activity?) = Log.w(activity?.javaClass).let { Unit }
+    override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+        logFragment(activity)
+        activity?.let { activity ->
+            activity.javaClass.simpleName.let { Log.println(Log.ERROR, "onActivityCreated", "($it.java:0)", it) }
+        }
+    }
+
+    override fun onActivityDestroyed(activity: Activity?) {
+        activity?.let { activity ->
+            activity.javaClass.simpleName.let { Log.println(Log.WARN, "onActivityDestroyed", "($it.java:0)", it) }
+        }
+    }
+
     override fun onActivityStarted(activity: Activity?) {}
     override fun onActivityStopped(activity: Activity?) {}
     override fun onActivityPaused(activity: Activity?) {}
@@ -21,10 +31,16 @@ fun Application.logActivity() = registerActivityLifecycleCallbacks(object : Appl
 })
 
 private fun logFragment(activity: Activity?) {
-    activity.takeIf { activity is AppCompatActivity } ?: return
-    (activity as AppCompatActivity).supportFragmentManager.registerFragmentLifecycleCallbacks(object : FragmentManager.FragmentLifecycleCallbacks() {
-        override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) = Log.onCreate(f.javaClass, savedInstanceState)
-        override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) = Log.onDestroy(f.javaClass)
-    }, true)
+    (activity as? AppCompatActivity)?.run {
+        supportFragmentManager.registerFragmentLifecycleCallbacks(object : androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
+            override fun onFragmentCreated(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment, savedInstanceState: Bundle?) {
+                f.javaClass.simpleName.takeUnless { "SupportRequestManagerFragment" == it }?.let { Log.println(Log.ERROR, "onFragmentCreated", "($it.java:0)", it) }
+            }
+
+            override fun onFragmentDestroyed(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment) {
+                f.javaClass.simpleName.takeUnless { "SupportRequestManagerFragment" == it }?.let { Log.println(Log.WARN, "onFragmentDestroyed", "($it.java:0)", it) }
+            }
+        }, true)
+    }
 }
 
