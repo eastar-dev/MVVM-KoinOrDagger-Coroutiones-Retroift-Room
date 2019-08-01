@@ -8,21 +8,7 @@ import androidx.lifecycle.Lifecycle
 import java.util.*
 
 @Suppress("unused")
-abstract class CFragment : Fragment(), Observer {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        EventObserver.addObserver(this)
-    }
-
-    override fun update(o: Observable?, arg: Any?) {
-        Log.e(o, arg)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        EventObserver.deleteObserver(this)
-    }
-
+abstract class CFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         parseExtra()

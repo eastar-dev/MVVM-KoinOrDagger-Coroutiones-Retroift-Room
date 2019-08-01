@@ -8,31 +8,19 @@ import androidx.lifecycle.Lifecycle
 import java.util.*
 import kotlin.properties.Delegates
 
-abstract class CActivity : AppCompatActivity(), Observer {
+abstract class CActivity : AppCompatActivity() {
 
     lateinit var mActivity: CActivity
     lateinit var mContext: Context
-    private var destroied: Boolean  by Delegates.observable(false) { property, oldValue, newValue -> Log.e(property.name, "$oldValue -> $newValue") }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mActivity = this
         mContext = this
-        EventObserver.addObserver(this)
         parseExtra()
         loadOnce()
         reload()
         updateUI()
-    }
-
-    override fun update(o: Observable?, arg: Any?) {
-        Log.e(o, arg)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        destroied = true
-        EventObserver.deleteObserver(this)
     }
 
     protected fun parseExtra() = try {
