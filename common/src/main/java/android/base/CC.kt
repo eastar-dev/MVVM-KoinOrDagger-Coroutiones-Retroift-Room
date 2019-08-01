@@ -3,7 +3,7 @@ package android.base
 import android.content.res.Resources
 import android.util.DisplayMetrics
 
-object BC {
+object CC {
     val densityDpi = Resources.getSystem().displayMetrics.densityDpi
     val density = Resources.getSystem().displayMetrics.density
     val widthPixels = Resources.getSystem().displayMetrics.widthPixels

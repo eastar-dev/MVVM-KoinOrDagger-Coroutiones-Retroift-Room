@@ -12,7 +12,7 @@ import java.nio.charset.Charset
 import java.util.concurrent.TimeUnit
 
 @Suppress("LocalVariableName")
-class Logger : Interceptor {
+class OkHttp3Logger : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
@@ -99,7 +99,7 @@ class Logger : Interceptor {
         if (_IN_2 && HttpHeaders.hasBody(response) && !bodyHasUnknownEncoding(response.headers())) {
             val source = responseBody.source()
             source.request(java.lang.Long.MAX_VALUE) // Buffer the entire body.
-            var buffer = source.buffer()
+            var buffer = source.buffer
 
             var gzippedLength: Long? = null
             val headers = response.headers()
@@ -154,6 +154,7 @@ class Logger : Interceptor {
                 && !contentEncoding.equals("gzip", ignoreCase = true))
     }
 
+    @Suppress("unused", "ObjectPropertyName", "ObjectPropertyName", "MayBeConstant")
     companion object {
         var LOG = false
         var _OUT_1 = false

@@ -17,7 +17,7 @@ fun createOkHttpClient(context: Context): OkHttpClient {
             .connectionPool(ConnectionPool())
             .addNetworkInterceptor(StethoInterceptor())
             .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC })
-            .addInterceptor(Logger())
+            .addInterceptor(OkHttp3Logger())
             .addInterceptor(ChuckInterceptor(context))
             .cookieJar(cookieManager)
             .build()

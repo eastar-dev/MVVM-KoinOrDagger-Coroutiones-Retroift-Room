@@ -5,6 +5,7 @@ import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
+@Suppress("UNUSED_PARAMETER")
 fun createOkHttpClient(context: Context): OkHttpClient {
     return OkHttpClient.Builder()
             .connectTimeout(10L, TimeUnit.SECONDS)

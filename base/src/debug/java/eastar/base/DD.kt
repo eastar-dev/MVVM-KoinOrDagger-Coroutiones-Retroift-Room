@@ -1,10 +1,11 @@
 package eastar.base
 
+import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.base.CD
 import android.content.Context
 import android.log.Log
-import android.retrofit.Logger
+import android.retrofit.OkHttp3Logger
 import android.webkit.WebView
 import androidx.core.app.NotificationCompat
 import com.facebook.stetho.Stetho
@@ -20,17 +21,17 @@ class DD {
             CD.DEVELOP = true
             CD.LIFELOG = true
 
-            Logger.LOG = true
-            Logger._OUT_1 = true
-//            Logger._OUT_2 = true
-//            Logger._OUT_3 = true
-//            Logger._OUT_H = true
-            Logger._OUT_C = true
-            Logger._IN_1 = true
-            Logger._IN_2 = true
-//            Logger._IN_3 = true
-//            Logger._IN_H = true
-            Logger._IN_C = true
+            OkHttp3Logger.LOG = true
+            OkHttp3Logger._OUT_1 = true
+//            OkHttp3Logger._OUT_2 = true
+//            OkHttp3Logger._OUT_3 = true
+//            OkHttp3Logger._OUT_H = true
+            OkHttp3Logger._OUT_C = true
+            OkHttp3Logger._IN_1 = true
+            OkHttp3Logger._IN_2 = true
+//            OkHttp3Logger._IN_3 = true
+//            OkHttp3Logger._IN_H = true
+            OkHttp3Logger._IN_C = true
             //@formatter:on
         }
 
@@ -64,17 +65,17 @@ class DD {
 //            Log.e("_IN_H         ", Net._IN_H)
 //            Log.e("_IN_C         ", Net._IN_C)
 
-            Log.e("Logger.LOG       ", Logger.LOG)
-            Log.e("Logger._OUT_1        ", Logger._OUT_1)
-            Log.e("Logger._OUT_2        ", Logger._OUT_2)
-            Log.e("Logger._OUT_3        ", Logger._OUT_3)
-            Log.e("Logger._OUT_H        ", Logger._OUT_H)
-            Log.e("Logger._OUT_C        ", Logger._OUT_C)
-            Log.e("Logger._IN_1         ", Logger._IN_1)
-            Log.e("Logger._IN_2         ", Logger._IN_2)
-            Log.e("Logger._IN_3         ", Logger._IN_3)
-            Log.e("Logger._IN_H         ", Logger._IN_H)
-            Log.e("Logger._IN_C         ", Logger._IN_C)
+            Log.e("OkHttp3Logger.LOG       ", OkHttp3Logger.LOG)
+            Log.e("OkHttp3Logger._OUT_1        ", OkHttp3Logger._OUT_1)
+            Log.e("OkHttp3Logger._OUT_2        ", OkHttp3Logger._OUT_2)
+            Log.e("OkHttp3Logger._OUT_3        ", OkHttp3Logger._OUT_3)
+            Log.e("OkHttp3Logger._OUT_H        ", OkHttp3Logger._OUT_H)
+            Log.e("OkHttp3Logger._OUT_C        ", OkHttp3Logger._OUT_C)
+            Log.e("OkHttp3Logger._IN_1         ", OkHttp3Logger._IN_1)
+            Log.e("OkHttp3Logger._IN_2         ", OkHttp3Logger._IN_2)
+            Log.e("OkHttp3Logger._IN_3         ", OkHttp3Logger._IN_3)
+            Log.e("OkHttp3Logger._IN_H         ", OkHttp3Logger._IN_H)
+            Log.e("OkHttp3Logger._IN_C         ", OkHttp3Logger._IN_C)
 
             //@formatter:on
         }

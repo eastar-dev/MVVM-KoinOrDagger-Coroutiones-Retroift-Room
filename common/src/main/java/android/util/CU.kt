@@ -2,30 +2,19 @@ package android.util
 
 import android.Manifest.permission.*
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.ActivityManager
-import android.base.BC
-import android.content.ClipData
 import android.content.Context
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.log.Log
-import android.net.Uri
 import android.os.Build
 import android.telephony.TelephonyManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.AttrRes
 import androidx.core.view.children
-import java.io.InputStream
 import java.nio.charset.Charset
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
-import java.util.*
-import java.util.regex.Pattern
 import javax.net.ssl.*
 
 object BU {
