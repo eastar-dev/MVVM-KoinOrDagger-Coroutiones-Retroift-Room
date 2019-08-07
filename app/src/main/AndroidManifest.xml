@@ -8,6 +8,12 @@
     <application
         android:name=".AppApplication"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name="dev.eastar.app.AppActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".AppMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
