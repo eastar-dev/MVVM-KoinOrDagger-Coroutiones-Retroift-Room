@@ -14,7 +14,7 @@ class Lib1Activity : AppCompatActivity() {
     }
 
     fun onLib1App(v: View) {
-        startActivity(Intent().setComponent(ComponentName(v.context, "dev.eastar.app.AppActivity")))
+        startActivity(Intent().setComponent(ComponentName(v.context, "dev.eastar.branch.app.AppMain")))
     }
 
     fun onLib1ToLib2(v: View) {

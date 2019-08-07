@@ -53,7 +53,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation project(':base')
-//    implementation project(':app_branch')
-    implementation project(':app_lib1')
-    implementation project(':app_lib2')
+    implementation project(':app_branch')
+//    implementation project(':app_lib1')
+//    implementation project(':app_lib2')
 }
