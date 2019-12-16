@@ -63,10 +63,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
     //retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.7.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
     releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
@@ -76,7 +76,7 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
 
     //rx
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.13'// rxjava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.16'// rxjava
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'// rxandroid
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'// rxandroid
 
