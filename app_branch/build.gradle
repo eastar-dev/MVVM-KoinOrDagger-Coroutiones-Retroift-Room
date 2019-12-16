@@ -78,6 +78,10 @@ dependencies {
     implementation 'org.koin:koin-java:2.0.1'
     testImplementation 'org.koin:koin-test:2.0.1'
 
+    api 'com.google.dagger:dagger-android:2.15'
+    api 'com.google.dagger:dagger-android-support:2.15' // if you use the support libraries
+    kapt 'com.google.dagger:dagger-android-processor:2.15'
+
     // Room
     def room_version = '2.2.2'
     implementation "androidx.room:room-runtime:$room_version"
