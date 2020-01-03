@@ -12,15 +12,11 @@ class LifeCycleLog
 fun Application.logActivity() = registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
         logFragment(activity)
-        activity?.let { activity ->
-            activity.javaClass.simpleName.let { Log.println(Log.ERROR, "onActivityCreated", "($it.java:0)", it) }
-        }
+        Log.println(Log.ERROR, "onActivityCreated", "(${activity?.javaClass?.simpleName}.java:0)", activity?.javaClass?.simpleName)
     }
 
     override fun onActivityDestroyed(activity: Activity?) {
-        activity?.let { activity ->
-            activity.javaClass.simpleName.let { Log.println(Log.WARN, "onActivityDestroyed", "($it.java:0)", it) }
-        }
+        Log.println(Log.WARN, "onActivityDestroyed", "(${activity?.javaClass?.simpleName}.java:0)", activity?.javaClass?.simpleName)
     }
 
     override fun onActivityStarted(activity: Activity?) {}
