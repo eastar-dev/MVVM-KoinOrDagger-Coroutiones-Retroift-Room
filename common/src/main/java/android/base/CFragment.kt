@@ -1,14 +1,16 @@
 package android.base
 
+import android.content.Intent
 import android.log.Log
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import java.util.*
 
 @Suppress("unused")
 abstract class CFragment : Fragment() {
+    open val intent: Intent get() = requireActivity().intent
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         parseExtra()
@@ -36,12 +38,7 @@ abstract class CFragment : Fragment() {
         Log.printStackTrace(e)
     }
 
-    private var mIsLoading = false
     protected fun load() {
-        if (mIsLoading) {
-            Log.w("mIsLoading=", mIsLoading)
-            return
-        }
         if (lifecycle.currentState == Lifecycle.State.DESTROYED) {
             Log.w("Lifecycle destroyed")
             return
@@ -67,7 +64,5 @@ abstract class CFragment : Fragment() {
     open fun onClear() {}
     open fun onLoad() {}
     open fun onUpdateUI() {}
-
-    open val intent get() = requireActivity().intent
 
 }

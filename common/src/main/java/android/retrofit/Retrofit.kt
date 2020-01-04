@@ -35,29 +35,3 @@ fun <T> createService(okHttpClient: OkHttpClient, baseUrl: String, service: Clas
 }
 
 
-
-
-//interface NetEnty {
-//    @POST
-//    fun <T : NetEnty> async(@Url url: String, @QueryMap query: Map<String, String>): T
-//
-//    fun service() = Retrofit.Builder()
-//            .client(createOkHttpClient())
-//            .addConverterFactory(GsonConverterFactory.create())
-//
-//}
-//
-//abstract class SmartEnty : NetEnty {
-//    data class Data(val firebase_token: String?)
-//
-//    val observable by lazy {
-//        service()
-//                .baseUrl("")
-//                .build()
-//                .create(this::class.java)
-//                .async<SmartEnty>("", mapOf())
-//    }
-//}
-
-
-

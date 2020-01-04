@@ -63,15 +63,6 @@ abstract class BindingAdapter<B : ViewDataBinding, VD> : RecyclerView.Adapter<Ho
             mOnItemClickListener?.onItemClick(parent, itemView, position, getItem(position))
             mOnItemClickCallback?.invoke(parent, itemView, position, getItem(position))
         }
-
-//        if (mOnItemClickListener != null) {
-//            itemView.setOnClickListener { v ->
-//                val position = (parent as RecyclerView).getChildLayoutPosition(v)
-//                mOnItemClickListener?.onItemClick(parent, itemView, position, getItem(position))
-//            }
-//        } else {
-//            itemView.setOnClickListener(null)
-//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -110,13 +101,6 @@ abstract class BindingAdapter<B : ViewDataBinding, VD> : RecyclerView.Adapter<Ho
         notifyItemRangeInserted(size, mObjects.size - size)
     }
 
-    //    public final void add(VD... items) {
-    //        synchronized (mLock) {
-    //            Collections.addAll(mObjects, items);
-    //        }
-    //        notifyDataSetChanged();
-    //    }
-
     fun set(collection: Collection<VD>?) {
         synchronized(mLock) {
             mObjects.clear()
@@ -126,14 +110,6 @@ abstract class BindingAdapter<B : ViewDataBinding, VD> : RecyclerView.Adapter<Ho
         notifyDataSetChanged()
     }
 
-    //    public void set(VD... items) {
-    //        synchronized (mLock) {
-    //            mObjects.clear();
-    //            Collections.addAll(mObjects, items);
-    //        }
-    //        notifyDataSetChanged();
-    //    }
-
     fun insert(item: VD?, position: Int) {
         synchronized(mLock) {
             mObjects.add(position, item)
@@ -141,15 +117,6 @@ abstract class BindingAdapter<B : ViewDataBinding, VD> : RecyclerView.Adapter<Ho
         notifyItemInserted(position)
     }
 
-    //    public void remove(@Nullable VD object, int position) {
-    //        boolean success;
-    //        Log.w(mObjects.indexOf(object), position);
-    //        synchronized (mLock) {
-    //            success = mObjects.remove(object);
-    //        }
-    //        if (success)
-    //            notifyItemRemoved(position);
-    //    }
 
     fun remove(position: Int) {
         Log.w(position)
@@ -177,9 +144,3 @@ abstract class BindingAdapter<B : ViewDataBinding, VD> : RecyclerView.Adapter<Ho
 }
 
 class Holder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-//        private class NothingHolder extends DiffHolder {
-//            public NothingHolder(View itemView) { super(itemView); }
-//            @Override
-//            public void bind(Object d) { }
-//        }

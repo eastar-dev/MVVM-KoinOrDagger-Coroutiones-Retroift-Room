@@ -66,8 +66,8 @@ dependencies {
     api 'com.android.volley:volley:1.1.1'
 
     //retrofit
-    api 'com.squareup.retrofit2:retrofit:2.7.0'
-    api 'com.squareup.retrofit2:converter-gson:2.7.0'
+    api 'com.squareup.retrofit2:retrofit:2.7.1'
+    api 'com.squareup.retrofit2:converter-gson:2.7.1'
     api 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
     debugApi 'com.readystatesoftware.chuck:library:1.1.0'
     releaseApi 'com.readystatesoftware.chuck:library-no-op:1.1.0'
@@ -83,9 +83,8 @@ dependencies {
     api 'com.github.djrain:EastarPermission:2.2.2'
 
     //EastarLog
-    debugApi 'com.github.djrain:EastarLog:3.0.5'
-    releaseApi 'com.github.djrain:EastarLogNoOp:3.0.5'
+    debugApi 'com.github.djrain:EastarLog:4.0.3'
+    releaseApi 'com.github.djrain:EastarLogNoOp:4.0.2'
 
-    releaseApi files('libs/common.jar')
-    debugApi project(':common')
+    api project(':common')
 }

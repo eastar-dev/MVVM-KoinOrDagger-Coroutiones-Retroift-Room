@@ -1,22 +1,14 @@
 package android.base
 
-import android.content.Context
 import android.log.Log
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import java.util.*
-import kotlin.properties.Delegates
 
 abstract class CActivity : AppCompatActivity() {
-
-    lateinit var mActivity: CActivity
-    lateinit var mContext: Context
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mActivity = this
-        mContext = this
         parseExtra()
         loadOnce()
         reload()
@@ -42,12 +34,7 @@ abstract class CActivity : AppCompatActivity() {
         Log.printStackTrace(e)
     }
 
-    protected var mIsLoading = false
     protected fun load() {
-        if (mIsLoading) {
-            Log.w("mIsLoading=", mIsLoading)
-            return
-        }
         if (lifecycle.currentState == Lifecycle.State.DESTROYED) {
             Log.w("Lifecycle destroyed")
             return
@@ -73,6 +60,4 @@ abstract class CActivity : AppCompatActivity() {
     open fun onClear() {}
     open fun onLoad() {}
     open fun onUpdateUI() {}
-
-    val progress by lazy { createProgress() }
 }

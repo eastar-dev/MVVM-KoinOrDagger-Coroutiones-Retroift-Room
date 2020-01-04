@@ -2,9 +2,9 @@ package android.base
 
 class CD {
     companion object {
-        var LOG = false
-        var DEVELOP = false
-        var LIFELOG = false
-        var PASS = false
+        var LOG = true
+        var DEVELOP = true
+        var PASS = true
+        var LIFELOG = true
     }
 }
