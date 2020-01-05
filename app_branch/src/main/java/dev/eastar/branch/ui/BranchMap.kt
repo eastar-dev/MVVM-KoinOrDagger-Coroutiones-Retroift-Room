@@ -11,10 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import dagger.android.support.AndroidSupportInjection
 import dev.eastar.branch.R
 import dev.eastar.branch.databinding.BranchMapBinding
 import dev.eastar.branch.model.BranchEntity
@@ -22,20 +20,8 @@ import dev.eastar.branch.presenter.BranchViewModel
 import dev.eastar.permission.PermissionRequest
 import eastar.base.BFragment
 import net.daum.mf.map.api.*
-import javax.inject.Inject
 
 class BranchMap : BFragment() {
-
-    //@Inject
-    //lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
-
-    //override fun androidInjector(): AndroidInjector<Any> = androidInjector
-
     @Suppress("NonAsciiCharacters", "ObjectPropertyName")
     companion object {
         private const val ZOOM_도보이동가능반경 = 2
@@ -47,14 +33,7 @@ class BranchMap : BFragment() {
     private var mCenterItem: BranchEntity? = null
     private lateinit var bb: BranchMapBinding
     //private val vm: BranchViewModel by activityViewModels()
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    var vm: BranchViewModel = ViewModelProviders.of(this, viewModelFactory)[BranchViewModel::class.java]
-
-    //@Inject
-    //var vm: BranchViewModel =  viewModelStore.ViewModelProviders.of(this, viewModelFactory)[BranchViewModel::class.java]
+    val vm: BranchViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         bb = BranchMapBinding.inflate(inflater, container, false)
