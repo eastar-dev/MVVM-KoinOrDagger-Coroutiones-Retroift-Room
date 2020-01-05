@@ -1,5 +1,6 @@
 package dev.eastar.branch.repository
 
+import dev.eastar.branch.model.BranchEntity
 import dev.eastar.branch.model.toWGS84
 import eastar.base.PP
 import kotlinx.coroutines.CoroutineScope
@@ -13,10 +14,9 @@ interface BranchRepository {
     suspend fun getBranchByKeyword(keyword: String): List<BranchEntity>
 }
 
-class BranchRepositoryImpl @Inject constructor(
-        private val branchNetSource: BranchService,
-        private val branchDBSource: BranchDao
-) : BranchRepository {
+class BranchRepositoryImpl : BranchRepository {
+    @Inject lateinit var branchNetSource: BranchService
+    @Inject lateinit var branchDBSource: BranchDao
     init {
         initBranch()
     }
@@ -87,8 +87,7 @@ class BranchRepositoryImpl @Inject constructor(
     }
 }
 
-val BranchEntity.icon: String
-    get() = "https://openhanafn.ttmap.co.kr/iframe/images/map_icn_hana.png"
+
 /*
 "https://openhanafn.ttmap.co.kr/iframe/images/map_icn_gb365.png"
 */
