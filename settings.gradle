@@ -2,8 +2,5 @@ include ':app'
 include ':base'
 include ':common'
 include ':app_branch'
-include ':multimoduledemo'
-include ':app_lib1'
-include ':app_lib2'
 
 rootProject.name='Branch'

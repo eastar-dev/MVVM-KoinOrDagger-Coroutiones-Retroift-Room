@@ -1,13 +1,29 @@
 package dev.eastar.branch.app
 
-import android.content.Context
-import android.log.Log
-import dev.eastar.branch.base.startBranchKoin
+import dagger.Component
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
+import dev.eastar.branch.di.*
 import eastar.base.BApplication
+import javax.inject.Singleton
 
 class AppApplication : BApplication() {
-    override fun onCreate() {
-        super.onCreate()
-        startBranchKoin(this)
+    override fun applicationInjector(): AndroidInjector<out dagger.android.DaggerApplication> {
+        return DaggerApplicationComponent.builder().create(this).apply { inject(this@AppApplication) }
     }
+}
+
+@Singleton
+@Component(modules = [AndroidSupportInjectionModule::class
+    , BranchMapModule::class
+    , BranchViewModelModule::class
+    , NetModule::class
+    , RepositoryModule::class
+    , RoomModule::class
+    , ViewModelModule::class
+])
+interface ApplicationComponent : AndroidInjector<AppApplication> {
+    //abstract class Builder : AndroidInjector.Factory<AppApplication>
+    @Component.Builder
+    abstract class Builder : AndroidInjector.Builder<AppApplication>()
 }

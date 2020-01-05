@@ -8,7 +8,6 @@ import android.log.Log
 import android.retrofit.OkHttp3Logger
 import android.webkit.WebView
 import androidx.core.app.NotificationCompat
-import com.facebook.stetho.Stetho
 import java.io.File
 
 class DD {
@@ -40,7 +39,6 @@ class DD {
             logInfo()
             displayInfo(context)
             setWebContentsDebuggingEnabled()
-            Stetho.initializeWithDefaults(context)
 //            sacnFolder(context.filesDir.parentFile, "")
 //            sacnFolder(File(context.getDatabasePath("0000").parent), "")
 //            uncaughtExceptionHandler(context)
@@ -97,7 +95,7 @@ class DD {
         private fun uncaughtExceptionHandler(context: Context) {
             val dueHandler = Thread.getDefaultUncaughtExceptionHandler()
             Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
-                Log.flog(context.packageName, Log._DUMP_StackTrace(throwable))
+                Log.flog(context.packageName, throwable.stackTrace)
                 dueHandler.uncaughtException(thread, throwable)
             }
         }

@@ -7,10 +7,9 @@ import androidx.core.os.bundleOf
 import androidx.room.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
-import org.koin.dsl.module
 import java.util.*
 
-@Entity(tableName = "branchs")
+@Entity(tableName = "branch")
 data class BranchEntity(
         @PrimaryKey var id: String = ""
         , var search_type: String? = null
@@ -36,7 +35,7 @@ data class BranchEntity(
     @Ignore
     var distance: Int = 0
     @Ignore
-    var distance_text: String = ""
+    var distanceText: String = ""
 }
 
 class BranchClusterItem(private val latLng: LatLng, private val snippet: String, private val title: String) : ClusterItem {
@@ -52,22 +51,17 @@ abstract class BranchDatabase : RoomDatabase() {
 
 @Dao
 interface BranchDao {
-    @Query("SELECT * FROM branchs ")
-    suspend fun getBranchs(): List<BranchEntity>
+    @Query("SELECT * FROM branch ")
+    suspend fun getBranch(): List<BranchEntity>
 
-    @Query("SELECT * FROM branchs WHERE address LIKE :keyword")
-    suspend fun getBranchsByKeyword(keyword: String): List<BranchEntity>
+    @Query("SELECT * FROM branch WHERE address LIKE :keyword")
+    suspend fun getBranchByKeyword(keyword: String): List<BranchEntity>
 
-    @Query("SELECT * FROM branchs WHERE (lon between :l and :r) and (lat between :b and :t)")
-    suspend fun getBranchsByRect(l: Double, t: Double, r: Double, b: Double): List<BranchEntity>
+    @Query("SELECT * FROM branch WHERE (lon between :l and :r) and (lat between :b and :t)")
+    suspend fun getBranchByRect(l: Double, t: Double, r: Double, b: Double): List<BranchEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBranch(vararg branch: BranchEntity)
-}
-
-val roomModule = module {
-    single { Room.databaseBuilder(get(), BranchDatabase::class.java, "Branchs.db").build() }
-    single { get<BranchDatabase>().branchDao() }
 }
 
 public val ATM = "ATM"
@@ -76,7 +70,7 @@ fun BranchEntity.getInfo(): String {
     if (!info.isBlank()) return info
 
     val info = StringBuilder().apply {
-        if (!name.isNullOrBlank()) {
+        if (!name.isBlank()) {
             append(name)
             if (ATM != branch_type)
                 append(" $branch_type")
@@ -123,21 +117,16 @@ fun BranchEntity.getDistance(lat: Double, lon: Double): Int {
 }
 
 fun BranchEntity.getDistanceText(x: Double, y: Double): String {
-    if (!distance_text.isNullOrBlank())
-        return distance_text
-    var distance = getDistance(x, y)
-    if (distance / 1000 > 1)
-        distance_text = String.format(Locale.getDefault(), "%.2fkm", distance.toFloat() / 1000f)
+    if (!distanceText.isBlank())
+        return distanceText
+    val distance = getDistance(x, y)
+    return if (distance / 1000 > 1)
+        String.format(Locale.getDefault(), "%.2fkm", distance.toFloat() / 1000f)
     else
-        distance_text = "" + distance + "m"
-
-    return distance_text
+        "" + distance + "m"
 }
 
-//        val isValid: Boolean
-//            get() = name != null && name!!.isNotEmpty() && -90.0 <= lat && lat <= +90.0 && -180.0 <= lon && lon <= +180.0
-
-val BranchEntity.intent get() = Intent().putExtras(bundle)
+val BranchEntity.intent: Intent get() = Intent().putExtras(bundle)
 val BranchEntity.bundle
     get() = bundleOf(
             "id" to id,
@@ -179,25 +168,3 @@ fun fromBundle(bundle: Bundle): BranchEntity {
         lat = bundle.getDouble("lat")
     }
 }
-
-//        internal fun postFix(): BranchEnty {
-//            setLatitude()
-//            setLongitude()
-//            setIcon()
-//            setDistanceText()
-//            return this
-//        }
-
-//        private fun setLatitude() {
-//            if (-90.0 <= lat && lat <= +90.0)
-//                return
-//            lat = getWGS84(position_y!!)
-//        }
-//
-//        private fun setLongitude() {
-//            if (-180.0 <= lon && lon <= +180.0)
-//                return
-//            lon = getWGS84(position_x!!)
-//        }
-
-

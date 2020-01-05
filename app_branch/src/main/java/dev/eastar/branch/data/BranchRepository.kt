@@ -4,34 +4,34 @@ import eastar.base.PP
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.koin.dsl.module
+import javax.inject.Inject
 
 interface BranchRepository {
-    suspend fun getBranchs(): List<BranchEntity>
-    suspend fun getBranchsByRect(l: Double, t: Double, r: Double, b: Double): List<BranchEntity>
-    suspend fun getBranchsByKeyword(keyword: String): List<BranchEntity>
+    suspend fun getBranch(): List<BranchEntity>
+    suspend fun getBranchByRect(l: Double, t: Double, r: Double, b: Double): List<BranchEntity>
+    suspend fun getBranchByKeyword(keyword: String): List<BranchEntity>
 }
 
-class BranchRepositoryImpl(
+class BranchRepositoryImpl @Inject constructor(
         private val branchNetSource: BranchService,
         private val branchDBSource: BranchDao
 ) : BranchRepository {
     init {
-        initBranchs()
+        initBranch()
     }
 
-    private fun initBranchs() {
+    private fun initBranch() {
         CoroutineScope(Dispatchers.IO).launch {
             if (!isUpdateBranch()) return@launch
-            val branchsFromNet = branchNetSource.getBranchsAsync().await()
-            if (!branchsFromNet.isSuccessful) return@launch
-            val items = branchsFromNet.body()?.list
+            val branchFromNet = branchNetSource.getBranchAsync().await()
+            if (!branchFromNet.isSuccessful) return@launch
+            val items = branchFromNet.body()?.list
             if (items.isNullOrEmpty()) return@launch
 
             val address1 = mutableSetOf<String?>()
             val address2 = mutableSetOf<String?>()
 
-            val branchsForDb = items.map {
+            val branchForDb = items.map {
                 BranchEntity(it.id
                         , it.search_type
                         , it.company_name
@@ -60,7 +60,7 @@ class BranchRepositoryImpl(
 
 //            address1.forEach { Log.e(it) }
 //            address2.forEach { Log.e(it) }
-            branchDBSource.insertBranch(*branchsForDb)
+            branchDBSource.insertBranch(*branchForDb)
 
             PP.LAST_BRANCH_SYNC.set(System.currentTimeMillis())
         }
@@ -73,16 +73,16 @@ class BranchRepositoryImpl(
 //        return System.currentTimeMillis() - PP.LAST_BRANCH_SYNC.getLong() > TimeUnit.MINUTES.toMillis(10)
     }
 
-    override suspend fun getBranchs(): List<BranchEntity> {
-        return branchDBSource.getBranchs()
+    override suspend fun getBranch(): List<BranchEntity> {
+        return branchDBSource.getBranch()
     }
 
-    override suspend fun getBranchsByRect(l: Double, t: Double, r: Double, b: Double): List<BranchEntity> {
-        return branchDBSource.getBranchsByRect(l, t, r, b)
+    override suspend fun getBranchByRect(l: Double, t: Double, r: Double, b: Double): List<BranchEntity> {
+        return branchDBSource.getBranchByRect(l, t, r, b)
     }
 
-    override suspend fun getBranchsByKeyword(keyword: String): List<BranchEntity> {
-        return branchDBSource.getBranchsByKeyword(keyword)
+    override suspend fun getBranchByKeyword(keyword: String): List<BranchEntity> {
+        return branchDBSource.getBranchByKeyword(keyword)
     }
 }
 
@@ -91,7 +91,3 @@ val BranchEntity.icon: String
 /*
 "https://openhanafn.ttmap.co.kr/iframe/images/map_icn_gb365.png"
 */
-
-val repositoryModule = module {
-    single<BranchRepository> { BranchRepositoryImpl(get(), get()) }
-}

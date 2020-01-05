@@ -7,6 +7,7 @@ import android.recycler.BindingAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dev.eastar.branch.R
@@ -16,7 +17,6 @@ import dev.eastar.branch.data.intent
 import dev.eastar.branch.databinding.BranchListBinding
 import dev.eastar.branch.databinding.BranchListItemBinding
 import dev.eastar.branch.presentation.BranchViewModel
-import org.koin.android.viewmodel.ext.android.sharedViewModel
 import eastar.base.BFragment
 
 @Suppress("UNUSED_ANONYMOUS_PARAMETER")
@@ -26,7 +26,7 @@ class Search : BFragment() {
     //    private val vm: BranchViewModel by inject() //not same!!
 //    private val vm by sharedViewModel<BranchViewModel>()
     private lateinit var bb: BranchListBinding
-    private val vm: BranchViewModel by sharedViewModel()
+    private val vm: BranchViewModel by activityViewModels()
     private val adapter by lazyOf(DataAdapter())
 //    private var 반경설정선택값 = 0
 
@@ -79,7 +79,7 @@ class Search : BFragment() {
             d?.let {
                 Glide.with(bb.icon).load(it.icon).into(bb.icon)
                 bb.name.text = it.name
-                bb.distance.text = it.distance_text
+                bb.distance.text = it.distanceText
             }
         }
     }

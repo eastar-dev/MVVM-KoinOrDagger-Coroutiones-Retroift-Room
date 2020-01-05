@@ -50,7 +50,7 @@ class OkHttp3Logger : Interceptor {
 
 
             if (isPlaintext(buffer)) {
-                _out.devide.append(Log._DUMP(buffer.readString(charset!!)))
+                _out.devide.append(buffer.readString(charset!!))
                 _out.devide.append("--> END " + request.method + " (" + body.contentLength())
             } else {
                 _out.devide.append("--> END " + request.method + " (binary " + body.contentLength())
@@ -124,7 +124,7 @@ class OkHttp3Logger : Interceptor {
                 _in.devide.append("<-- END HTTP (binary " + buffer.size + "-byte body omitted)")
 
             if (contentLength != 0L)
-                _in.devide.append(Log._DUMP(buffer.clone().readString(charset!!)))
+                _in.devide.append(buffer.clone().readString(charset!!))
 
             if (gzippedLength != null)
                 _in.devide.append("<-- END HTTP (" + buffer.size + "-byte, " + gzippedLength + "-gzipped-byte body)")

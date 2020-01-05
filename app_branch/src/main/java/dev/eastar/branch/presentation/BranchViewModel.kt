@@ -4,15 +4,14 @@ import android.log.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.eastar.branch.data.BranchEntity
+import dev.eastar.branch.data.BranchRepository
 import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
-import dev.eastar.branch.data.BranchEntity
-import dev.eastar.branch.data.BranchRepository
-import org.koin.android.viewmodel.dsl.viewModel
-import org.koin.dsl.module
+import javax.inject.Inject
 
-class BranchViewModel(val repository: BranchRepository) : ViewModel() {
+class BranchViewModel @Inject constructor(val repository: BranchRepository) : ViewModel() {
 
     val progress by lazy { MutableLiveData<Int>() }
     val branchsInMap by lazy { MutableLiveData<List<BranchEntity>>() }
@@ -21,8 +20,8 @@ class BranchViewModel(val repository: BranchRepository) : ViewModel() {
     fun getBranch() {
         viewModelScope.launch {
             try {
-//            val data = repository.getBranchs()
-                repository.getBranchs()
+//            val data = repository.getBranch()
+                repository.getBranch()
             } catch (e: Exception) {
                 //TODO 공통 error 처리
             }
@@ -39,10 +38,10 @@ class BranchViewModel(val repository: BranchRepository) : ViewModel() {
 //                , mapView.mapPointBounds.topRight.mapPointGeoCoord.longitude
 //                , mapView.mapPointBounds.bottomLeft.mapPointGeoCoord.latitude)
         viewModelScope.launch {
-            val branchsAll = repository.getBranchs()
+            val branchsAll = repository.getBranch()
             Log.e("queryed branchsAll.size", branchsAll.size)
 
-            val branchs = repository.getBranchsByRect(mapView.mapPointBounds.bottomLeft.mapPointGeoCoord.longitude
+            val branchs = repository.getBranchByRect(mapView.mapPointBounds.bottomLeft.mapPointGeoCoord.longitude
                     , mapView.mapPointBounds.topRight.mapPointGeoCoord.latitude
                     , mapView.mapPointBounds.topRight.mapPointGeoCoord.longitude
                     , mapView.mapPointBounds.bottomLeft.mapPointGeoCoord.latitude
@@ -58,8 +57,4 @@ class BranchViewModel(val repository: BranchRepository) : ViewModel() {
             return
         branchsTeling.value = branch
     }
-}
-
-val viewmodelModule = module {
-    viewModel { BranchViewModel(get()) }
 }
