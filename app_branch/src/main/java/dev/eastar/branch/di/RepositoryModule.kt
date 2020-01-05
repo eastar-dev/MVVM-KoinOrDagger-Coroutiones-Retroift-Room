@@ -13,7 +13,7 @@ import dev.eastar.branch.repository.BranchService
 class RepositoryModule {
     @Provides
     @Reusable
-    fun provideRepository(branchNetSource: BranchService, branchDBSource: BranchDao): BranchRepository {
-        return BranchRepositoryImpl(branchNetSource, branchDBSource)
+    fun provideRepository(): BranchRepository {
+        return BranchRepositoryImpl()
     }
 }

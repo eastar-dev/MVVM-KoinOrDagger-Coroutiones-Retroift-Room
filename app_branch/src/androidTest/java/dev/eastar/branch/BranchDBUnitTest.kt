@@ -1,4 +1,4 @@
-package dummy
+package dev.eastar.branch
 
 import android.log.Log
 import androidx.room.Room
@@ -23,7 +23,7 @@ class BranchDBUnitTest {
      */
     @Before
     fun before() {
-        Log.MODE = Log.eMODE.SYSTEMOUT
+        Log.OUTPUT_CHANNEL = Log.Channel.SYSTEM
         Log.e("startBranchKoin")
 //        startBranchKoin {
 //            androidLogger()

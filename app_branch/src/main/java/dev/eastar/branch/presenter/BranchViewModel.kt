@@ -4,14 +4,17 @@ import android.log.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.eastar.branch.repository.BranchEntity
+import dev.eastar.branch.model.BranchEntity
 import dev.eastar.branch.repository.BranchRepository
 import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import javax.inject.Inject
 
-class BranchViewModel @Inject constructor(val repository: BranchRepository) : ViewModel() {
+class BranchViewModel : ViewModel() {
+
+    @Inject
+    lateinit var repository: BranchRepository
 
     val progress by lazy { MutableLiveData<Int>() }
     val branchsInMap by lazy { MutableLiveData<List<BranchEntity>>() }

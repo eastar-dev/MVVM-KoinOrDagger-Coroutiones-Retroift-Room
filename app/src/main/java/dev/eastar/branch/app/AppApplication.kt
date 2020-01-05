@@ -3,7 +3,9 @@ package dev.eastar.branch.app
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import dev.eastar.branch.di.*
+import dev.eastar.branch.di.RepositoryModule
+import dev.eastar.branch.di.RetrofitModule
+import dev.eastar.branch.di.RoomModule
 import eastar.base.BApplication
 import javax.inject.Singleton
 
@@ -15,13 +17,11 @@ class AppApplication : BApplication() {
 
 @Singleton
 @Component(modules = [AndroidSupportInjectionModule::class
-    , BranchMapModule::class
-    , BranchViewModelModule::class
-    , NetModule::class
+    , RetrofitModule::class
     , RepositoryModule::class
     , RoomModule::class
-    , ViewModelModule::class
 ])
+
 interface ApplicationComponent : AndroidInjector<AppApplication> {
     //abstract class Builder : AndroidInjector.Factory<AppApplication>
     @Component.Builder
