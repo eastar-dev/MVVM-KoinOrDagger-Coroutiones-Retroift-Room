@@ -1,11 +1,11 @@
-package dev.eastar.branch.presentation
+package dev.eastar.branch.presenter
 
 import android.log.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.eastar.branch.data.BranchEntity
-import dev.eastar.branch.data.BranchRepository
+import dev.eastar.branch.repository.BranchEntity
+import dev.eastar.branch.repository.BranchRepository
 import kotlinx.coroutines.launch
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView

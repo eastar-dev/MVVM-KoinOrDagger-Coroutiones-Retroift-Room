@@ -1,5 +1,6 @@
-package dev.eastar.branch.data
+package dev.eastar.branch.repository
 
+import dev.eastar.branch.model.toWGS84
 import eastar.base.PP
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

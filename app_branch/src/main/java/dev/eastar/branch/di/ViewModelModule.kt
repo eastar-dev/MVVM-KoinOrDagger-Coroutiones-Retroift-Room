@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import dev.eastar.branch.data.ViewModelFactory
-import dev.eastar.branch.presentation.BranchViewModel
+import dev.eastar.branch.di.annotation.ViewModelKey
+import dev.eastar.branch.repository.ViewModelFactory
+import dev.eastar.branch.presenter.BranchViewModel
 
 @Module
 abstract class ViewModelModule {

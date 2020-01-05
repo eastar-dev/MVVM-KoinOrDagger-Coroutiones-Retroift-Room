@@ -1,4 +1,4 @@
-package dev.eastar.branch.di
+package dev.eastar.branch.di.annotation
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

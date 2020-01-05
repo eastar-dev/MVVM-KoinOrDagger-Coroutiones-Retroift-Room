@@ -1,4 +1,4 @@
-package dev.eastar.branch.data
+package dev.eastar.branch.repository
 
 import android.content.Intent
 import android.location.Location

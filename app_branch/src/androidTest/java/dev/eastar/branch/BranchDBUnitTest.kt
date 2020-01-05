@@ -4,7 +4,7 @@ import android.log.Log
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import dev.eastar.branch.data.BranchDatabase
+import dev.eastar.branch.repository.BranchDatabase
 import org.junit.Before
 import org.junit.runner.RunWith
 

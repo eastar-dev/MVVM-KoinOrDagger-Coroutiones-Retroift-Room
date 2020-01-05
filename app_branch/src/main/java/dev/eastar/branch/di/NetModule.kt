@@ -5,7 +5,7 @@ import android.retrofit.createService
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import dev.eastar.branch.data.BranchService
+import dev.eastar.branch.repository.BranchService
 import okhttp3.OkHttpClient
 
 @Module

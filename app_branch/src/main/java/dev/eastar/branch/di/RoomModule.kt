@@ -5,8 +5,8 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import dev.eastar.branch.data.BranchDao
-import dev.eastar.branch.data.BranchDatabase
+import dev.eastar.branch.repository.BranchDao
+import dev.eastar.branch.repository.BranchDatabase
 import javax.inject.Singleton
 
 @Module

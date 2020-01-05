@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="dev.eastar.branch.presentation.BranchViewModel" />
+            type="dev.eastar.branch.presenter.BranchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

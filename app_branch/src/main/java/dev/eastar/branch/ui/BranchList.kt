@@ -11,12 +11,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dev.eastar.branch.R
-import dev.eastar.branch.data.BranchEntity
-import dev.eastar.branch.data.icon
-import dev.eastar.branch.data.intent
+import dev.eastar.branch.repository.BranchEntity
+import dev.eastar.branch.repository.icon
+import dev.eastar.branch.repository.intent
 import dev.eastar.branch.databinding.BranchListBinding
 import dev.eastar.branch.databinding.BranchListItemBinding
-import dev.eastar.branch.presentation.BranchViewModel
+import dev.eastar.branch.presenter.BranchViewModel
 import eastar.base.BFragment
 
 @Suppress("UNUSED_ANONYMOUS_PARAMETER")

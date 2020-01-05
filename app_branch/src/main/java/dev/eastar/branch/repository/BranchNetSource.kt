@@ -1,5 +1,6 @@
-package dev.eastar.branch.data
+package dev.eastar.branch.repository
 
+import dev.eastar.branch.model.BranchList
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.POST

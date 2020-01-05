@@ -16,9 +16,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.AndroidSupportInjection
 import dev.eastar.branch.R
-import dev.eastar.branch.data.BranchEntity
+import dev.eastar.branch.repository.BranchEntity
 import dev.eastar.branch.databinding.BranchMapBinding
-import dev.eastar.branch.presentation.BranchViewModel
+import dev.eastar.branch.presenter.BranchViewModel
 import dev.eastar.permission.PermissionRequest
 import eastar.base.BFragment
 import net.daum.mf.map.api.*

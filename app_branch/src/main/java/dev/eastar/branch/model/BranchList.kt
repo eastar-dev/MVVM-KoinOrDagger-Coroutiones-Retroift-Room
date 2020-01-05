@@ -1,4 +1,4 @@
-package dev.eastar.branch.data
+package dev.eastar.branch.model
 
 class BranchList {
     var list: Array<BranchNetEntity>? = null
