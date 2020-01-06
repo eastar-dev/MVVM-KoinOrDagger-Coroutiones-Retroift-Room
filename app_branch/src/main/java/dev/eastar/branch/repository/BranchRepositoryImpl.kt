@@ -8,9 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class BranchRepositoryImpl : BranchRepository {
-    @Inject lateinit var branchNetSource: BranchService
-    @Inject lateinit var branchDBSource: BranchDao
+class BranchRepositoryImpl @Inject constructor(val branchNetSource: BranchService) : BranchRepository {
+    //@Inject lateinit var branchNetSource: BranchService
+    //@Inject lateinit var branchDBSource: BranchDao
 
     init {
         initBranch()
@@ -56,7 +56,7 @@ class BranchRepositoryImpl : BranchRepository {
 
 //            address1.forEach { Log.e(it) }
 //            address2.forEach { Log.e(it) }
-            branchDBSource.insertBranch(*branchForDb)
+//            branchDBSource.insertBranch(*branchForDb)
 
             PP.LAST_BRANCH_SYNC.set(System.currentTimeMillis())
         }
@@ -70,14 +70,18 @@ class BranchRepositoryImpl : BranchRepository {
     }
 
     override suspend fun getBranch(): List<BranchEntity> {
-        return branchDBSource.getBranch()
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun getBranchByRect(l: Double, t: Double, r: Double, b: Double): List<BranchEntity> {
-        return branchDBSource.getBranchByRect(l, t, r, b)
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun getBranchByKeyword(keyword: String): List<BranchEntity> {
-        return branchDBSource.getBranchByKeyword(keyword)
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    //override suspend fun getBranch(): List<BranchEntity> = branchDBSource.getBranch()
+    //override suspend fun getBranchByRect(l: Double, t: Double, r: Double, b: Double): List<BranchEntity> = branchDBSource.getBranchByRect(l, t, r, b)
+    //override suspend fun getBranchByKeyword(keyword: String): List<BranchEntity> = branchDBSource.getBranchByKeyword(keyword)
 }

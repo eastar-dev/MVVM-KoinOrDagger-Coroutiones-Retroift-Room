@@ -1,4 +1,4 @@
-package dev.eastar.branch.di
+package dev.eastar.branch.di.module
 
 import android.app.Application
 import androidx.room.Room
@@ -10,7 +10,6 @@ import dev.eastar.branch.repository.BranchDatabase
 import javax.inject.Singleton
 
 @Module
-@Suppress("unused")
 class RoomModule {
     @Provides
     @Singleton

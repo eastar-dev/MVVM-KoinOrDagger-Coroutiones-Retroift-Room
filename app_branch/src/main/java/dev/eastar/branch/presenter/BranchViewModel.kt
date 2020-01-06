@@ -11,10 +11,7 @@ import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import javax.inject.Inject
 
-class BranchViewModel : ViewModel() {
-
-    @Inject
-    lateinit var repository: BranchRepository
+class BranchViewModel @Inject constructor(val repository: BranchRepository) : ViewModel() {
 
     val progress by lazy { MutableLiveData<Int>() }
     val branchsInMap by lazy { MutableLiveData<List<BranchEntity>>() }
@@ -22,11 +19,8 @@ class BranchViewModel : ViewModel() {
 
     fun getBranch() {
         viewModelScope.launch {
-            try {
-//            val data = repository.getBranch()
+            runCatching {
                 repository.getBranch()
-            } catch (e: Exception) {
-                //TODO 공통 error 처리
             }
         }
     }

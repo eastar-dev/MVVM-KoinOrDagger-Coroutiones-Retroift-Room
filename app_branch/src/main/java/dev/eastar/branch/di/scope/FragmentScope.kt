@@ -1,4 +1,4 @@
-package dev.eastar.branch.di.annotation
+package dev.eastar.branch.di.scope
 
 import javax.inject.Scope
 

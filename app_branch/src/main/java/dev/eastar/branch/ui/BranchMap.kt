@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import dagger.android.support.AndroidSupportInjection
 import dev.eastar.branch.R
 import dev.eastar.branch.databinding.BranchMapBinding
 import dev.eastar.branch.model.BranchEntity
@@ -34,6 +35,11 @@ class BranchMap : BFragment() {
     private lateinit var bb: BranchMapBinding
     //private val vm: BranchViewModel by activityViewModels()
     val vm: BranchViewModel by activityViewModels()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        AndroidSupportInjection.inject(this)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         bb = BranchMapBinding.inflate(inflater, container, false)
