@@ -7,34 +7,59 @@
     tools:context=".AppActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView"
-        android:layout_width="match_parent"
+        android:id="@+id/appCompatButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="App1"
+        android:background="#500f"
+        android:ellipsize="end"
+        android:maxWidth="230dp"
+        android:maxLines="1"
+        android:text="App->12345"
         android:textSize="50dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/appCompatButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:onClick="onAppToLib1"
-        android:text="App->Lib1"
-        android:textSize="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
-        tools:layout_editor_absoluteX="0dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatButton1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:onClick="onAppToLib2"
-        android:text="App->Lib2"
+        android:background="#50f0"
+        android:maxLines="1"
+        android:text=",20"
         android:textSize="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatButton"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintStart_toEndOf="@+id/appCompatButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatButton3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="#5f00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatButton4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="204dp"
+        android:background="#500f"
+        android:maxLines="1"
+        android:text="App->1234567890"
+        android:textSize="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/appCompatButton5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatButton5"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="204dp"
+        android:background="#5f00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/appCompatButton4"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

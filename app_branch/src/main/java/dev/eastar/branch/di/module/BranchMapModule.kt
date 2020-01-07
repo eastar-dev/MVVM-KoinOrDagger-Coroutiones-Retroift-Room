@@ -13,8 +13,8 @@ import javax.inject.Provider
 
 @Module
 abstract class BranchMapModule {
-    @ContributesAndroidInjector(modules = [BranchViewModel::class])
-    abstract fun bind(): BranchMap
+    //@ContributesAndroidInjector(modules = [BranchViewModel::class])
+    //abstract fun bind(): BranchMap
 
     @Provides
     fun provideViewModelFactory(providers: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>): ViewModelProvider.Factory =

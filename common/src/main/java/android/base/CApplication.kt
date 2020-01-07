@@ -1,5 +1,6 @@
 package android.base
 
+import android.app.Application
 import dagger.android.DaggerApplication
 
-abstract class CApplication : DaggerApplication()
+abstract class CApplication : Application()
