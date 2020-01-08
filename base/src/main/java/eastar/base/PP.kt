@@ -5,8 +5,8 @@ package eastar.base
 import android.content.Context
 import android.content.SharedPreferences
 import android.log.Log
-import android.preference.PreferenceManager
 import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import java.util.*
 
 /**

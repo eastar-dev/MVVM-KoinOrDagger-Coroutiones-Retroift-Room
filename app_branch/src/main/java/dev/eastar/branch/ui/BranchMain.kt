@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
 import dev.eastar.branch.R
+import dev.eastar.branch.presenter.BranchViewModel
 import eastar.base.BFragment
+import javax.inject.Inject
 
 class BranchMain : BFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -15,7 +17,7 @@ class BranchMain : BFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fragmentManager?.commit(true) {
+        parentFragmentManager.commit(true) {
             replace(R.id.branch_container, BranchMap())
         }
     }

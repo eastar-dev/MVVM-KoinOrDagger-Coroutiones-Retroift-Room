@@ -1,6 +1,5 @@
 package eastar.base
 
-import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.base.CD
 import android.content.Context
@@ -96,7 +95,7 @@ class DD {
             val dueHandler = Thread.getDefaultUncaughtExceptionHandler()
             Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
                 Log.flog(context.packageName, throwable.stackTrace)
-                dueHandler.uncaughtException(thread, throwable)
+                dueHandler?.uncaughtException(thread, throwable)
             }
         }
 
@@ -108,16 +107,14 @@ class DD {
 
             Log.e(prefix, dir.absolutePath)
 
-            val fs = dir.listFiles()
-            for (file in fs) {
-                if (!file.isDirectory) {
-                    Log.i(prefix, file.absolutePath, file.length())
+            dir.listFiles()?.forEach {
+                if (!it.isDirectory) {
+                    Log.i(prefix, it.absolutePath, it.length())
                 }
             }
-
-            for (file in fs) {
-                if (file.isDirectory) {
-                    sacnFolder(file, "$prefix▷")
+            dir.listFiles()?.forEach {
+                if (it.isDirectory) {
+                    sacnFolder(it, "$prefix▷")
                 }
             }
         }

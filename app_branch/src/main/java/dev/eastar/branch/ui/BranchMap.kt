@@ -11,8 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dev.eastar.branch.R
 import dev.eastar.branch.databinding.BranchMapBinding
@@ -23,7 +25,25 @@ import eastar.base.BFragment
 import net.daum.mf.map.api.*
 import javax.inject.Inject
 
-class BranchMap : BFragment() {
+/**
+ * A [Fragment] that injects its members in [.onAttach] and can be used to
+ * inject child [Fragment]s attached to it. Note that when this fragment gets reattached, its
+ * members will be injected again.
+ */
+class BranchMap : BFragment(), HasAndroidInjector {
+    @Inject
+    @JvmField
+    var androidInjector: DispatchingAndroidInjector<Any>? = null
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
+    override fun androidInjector(): AndroidInjector<Any> {
+        return androidInjector!!
+    }
+
     @Suppress("NonAsciiCharacters", "ObjectPropertyName")
     companion object {
         private const val ZOOM_도보이동가능반경 = 2
@@ -37,11 +57,6 @@ class BranchMap : BFragment() {
     //private val vm: BranchViewModel by activityViewModels()
     //val vm: BranchViewModel by activityViewModels()
     @Inject lateinit var vm: BranchViewModel
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        AndroidSupportInjection.inject(this)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         bb = BranchMapBinding.inflate(inflater, container, false)

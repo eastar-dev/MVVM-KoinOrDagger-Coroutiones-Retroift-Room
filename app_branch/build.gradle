@@ -4,13 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 28
-        useLibrary 'org.apache.http.legacy'
+        targetSdkVersion 29
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    useLibrary 'org.apache.http.legacy'
     buildFeatures { dataBinding = true }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -20,7 +20,7 @@ android {
 
 dependencies {
     implementation project(':base')
-    implementation files('libs/libDaumMapAndroid.jar')
+    api files('libs/libDaumMapAndroid.jar')
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

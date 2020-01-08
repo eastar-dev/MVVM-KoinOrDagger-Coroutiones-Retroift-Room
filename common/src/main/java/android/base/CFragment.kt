@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import dagger.android.support.DaggerFragment
 
 @Suppress("unused")
 abstract class CFragment : Fragment() {

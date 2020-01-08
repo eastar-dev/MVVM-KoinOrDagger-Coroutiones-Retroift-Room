@@ -12,7 +12,6 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
-import android.preference.PreferenceManager
 import android.telephony.TelephonyManager
 import android.widget.TextView
 import android.widget.Toast
@@ -20,6 +19,7 @@ import androidx.annotation.AttrRes
 import androidx.annotation.RawRes
 import androidx.annotation.StringRes
 import androidx.core.content.pm.PackageInfoCompat
+import androidx.preference.PreferenceManager
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -200,7 +200,7 @@ val SDK_INT = Build.VERSION.SDK_INT
 
 infix fun Context.copy(text: CharSequence) {
     val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-    clipboard.primaryClip = ClipData.newPlainText(text, text)
+    clipboard.setPrimaryClip(ClipData.newPlainText(text, text))
     toast("복사 하였습니다.")
 }
 
