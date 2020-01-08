@@ -21,6 +21,7 @@ import dev.eastar.branch.presenter.BranchViewModel
 import dev.eastar.permission.PermissionRequest
 import eastar.base.BFragment
 import net.daum.mf.map.api.*
+import javax.inject.Inject
 
 class BranchMap : BFragment() {
     @Suppress("NonAsciiCharacters", "ObjectPropertyName")
@@ -34,7 +35,8 @@ class BranchMap : BFragment() {
     private var mCenterItem: BranchEntity? = null
     private lateinit var bb: BranchMapBinding
     //private val vm: BranchViewModel by activityViewModels()
-    val vm: BranchViewModel by activityViewModels()
+    //val vm: BranchViewModel by activityViewModels()
+    @Inject lateinit var vm: BranchViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

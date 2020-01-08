@@ -11,20 +11,10 @@ import dev.eastar.branch.presenter.BranchViewModel
 import dev.eastar.branch.ui.BranchMap
 import javax.inject.Provider
 
+//@Module(includes = [BranchViewModel::class])
 @Module
 abstract class BranchMapModule {
     //@ContributesAndroidInjector(modules = [BranchViewModel::class])
-    //abstract fun bind(): BranchMap
-
-    @Provides
-    fun provideViewModelFactory(providers: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>): ViewModelProvider.Factory =
-            AppViewModelFactory(providers)
-
-    @Module
-    class InjectViewModel {
-        @Provides
-        fun provideAddNoteViewModel(factory: ViewModelProvider.Factory, target: BranchMap) =
-                ViewModelProviders.of(target, factory).get(BranchViewModel::class.java)
-    }
-
+    @ContributesAndroidInjector
+    abstract fun bind(): BranchViewModel
 }

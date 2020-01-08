@@ -12,13 +12,11 @@ import javax.inject.Singleton
 @Module
 class RoomModule {
     @Provides
-    @Singleton
     internal fun provideBranchDatabase(application: Application): BranchDatabase {
         return Room.databaseBuilder(application, BranchDatabase::class.java, "Branch.db").build()
     }
 
     @Provides
-    @Reusable
     internal fun provideBranchDao(branchDatabase: BranchDatabase): BranchDao {
         return branchDatabase.branchDao()
     }

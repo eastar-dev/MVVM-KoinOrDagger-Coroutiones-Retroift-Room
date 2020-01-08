@@ -19,7 +19,6 @@ import javax.inject.Singleton
 
 @Module
 class RetrofitModule {
-    @Singleton
     @Provides
     fun provideBranchService(): BranchService {
         return Retrofit.Builder()
