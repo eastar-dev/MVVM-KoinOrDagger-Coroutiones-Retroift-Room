@@ -7,7 +7,6 @@
     <dist:module dist:instant="true" />
     <application
         android:name=".AppApplication"
-        android:networkSecurityConfig="@xml/network_security_config"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".AppMain">
             <intent-filter>
