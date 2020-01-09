@@ -12,52 +12,57 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:layout_height="match_parent">
 
         <net.daum.mf.map.api.MapView
             android:id="@+id/kakaoMap"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/showList"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="리스트보기"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_show_list"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="#5f00" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:id="@+id/uiLayer"
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/showSearch"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:contentDescription="검색"
-            android:scaleType="center"
-            android:src="@drawable/ic_search"
-            app:layout_constraintStart_toEndOf="@+id/showList"
-            app:layout_constraintTop_toTopOf="@+id/showList"
-            tools:background="#5f00" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/showList"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="리스트보기"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_show_list"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="#5f00" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/currentPosition"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="현위치"
-            android:scaleType="center"
-            android:src="@drawable/ic_current_position"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/kakaoMap"
-            tools:background="#5f00" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/showSearch"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:contentDescription="검색"
+                android:scaleType="center"
+                android:src="@drawable/ic_search"
+                app:layout_constraintStart_toEndOf="@+id/showList"
+                app:layout_constraintTop_toTopOf="@+id/showList"
+                tools:background="#5f00" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/currentPosition"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="현위치"
+                android:scaleType="center"
+                android:src="@drawable/ic_current_position"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:background="#5f00" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

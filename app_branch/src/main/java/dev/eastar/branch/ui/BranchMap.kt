@@ -62,7 +62,19 @@ class BranchMap : BFragment(), HasAndroidInjector {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         bb = BranchMapBinding.inflate(inflater, container, false)
         bb.vm = vm
+        inset(bb.uiLayer)
         return bb.root
+    }
+
+
+    private fun inset(rootView: View) {
+        rootView.setOnApplyWindowInsetsListener { view, insets ->
+            view.setPadding(insets.systemWindowInsetLeft
+                    , insets.systemWindowInsetTop
+                    , insets.systemWindowInsetRight
+                    , insets.systemWindowInsetBottom)
+            insets
+        }
     }
 
     override fun onLoadOnce() {
