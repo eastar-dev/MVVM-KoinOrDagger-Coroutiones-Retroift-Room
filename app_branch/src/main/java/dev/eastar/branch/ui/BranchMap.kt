@@ -32,16 +32,16 @@ import javax.inject.Inject
  */
 class BranchMap : BFragment(), HasAndroidInjector {
     @Inject
-    @JvmField
-    var androidInjector: DispatchingAndroidInjector<Any>? = null
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
 
-    override fun androidInjector(): AndroidInjector<Any> {
-        return androidInjector!!
+    override fun onDetach() {
+        super.onDetach()
     }
 
     @Suppress("NonAsciiCharacters", "ObjectPropertyName")

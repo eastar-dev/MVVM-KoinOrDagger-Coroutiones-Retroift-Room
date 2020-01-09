@@ -64,7 +64,7 @@ class BranchRepositoryImpl @Inject constructor(val branchNetSource: BranchServic
     }
 
     private fun isUpdateBranch(): Boolean {
-        return true
+        //return true
         Log.e(System.currentTimeMillis(), PP.LAST_BRANCH_SYNC.getLong(), System.currentTimeMillis() - PP.LAST_BRANCH_SYNC.getLong(), if (System.currentTimeMillis() - PP.LAST_BRANCH_SYNC.getLong() > TimeUnit.MINUTES.toMillis(10)) "Need Sync" else "Synced")
         return System.currentTimeMillis() - PP.LAST_BRANCH_SYNC.getLong() > TimeUnit.MINUTES.toMillis(10)
     }

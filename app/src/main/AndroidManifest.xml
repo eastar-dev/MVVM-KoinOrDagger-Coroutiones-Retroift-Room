@@ -8,13 +8,15 @@
     <application
         android:name=".AppApplication"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AppMain">
+        <activity
+            android:name=".AppMain"
+            android:resizeableActivity="true"
+            tools:targetApi="n">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AppActivity">
-        </activity>
+        <activity android:name=".AppActivity" />
     </application>
 </manifest>

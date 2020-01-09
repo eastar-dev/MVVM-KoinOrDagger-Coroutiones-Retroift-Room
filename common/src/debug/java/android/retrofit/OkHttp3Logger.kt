@@ -132,8 +132,8 @@ class OkHttp3Logger : Interceptor {
                 _in.devide.append("<-- END HTTP (" + buffer.size + "-byte body)")
         }
 
-        //if (_in.length > 1000)
-        //    _in.setLength(1000)
+        if (_in.length > 1000)
+            _in.setLength(1000)
 
         Log.p(if (response.isSuccessful) Log.INFO else Log.WARN, _in)
 
