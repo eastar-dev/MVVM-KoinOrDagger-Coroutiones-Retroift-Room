@@ -30,7 +30,6 @@ class BranchViewModel @Inject constructor(val repository: BranchRepository) : Vi
     }
 
     fun searchInMap(mapView: MapView) {
-        return
 //        Log.e(mapView, mapView.mapPointBounds.bottomLeft.mapPointGeoCoord.longitude
 //                , mapView.mapPointBounds.topRight.mapPointGeoCoord.latitude
 //                , mapView.mapPointBounds.topRight.mapPointGeoCoord.longitude
