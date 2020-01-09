@@ -42,6 +42,7 @@ class BranchMap : BFragment(), HasAndroidInjector {
 
     override fun onDetach() {
         super.onDetach()
+        bb.kakaoMap.surfaceDestroyed(null)
     }
 
     @Suppress("NonAsciiCharacters", "ObjectPropertyName")
