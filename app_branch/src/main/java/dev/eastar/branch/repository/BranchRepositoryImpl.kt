@@ -1,16 +1,16 @@
 package dev.eastar.branch.repository
 
+import android.log.Log
 import dev.eastar.branch.model.BranchEntity
 import dev.eastar.branch.model.toWGS84
 import eastar.base.PP
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class BranchRepositoryImpl @Inject constructor(val branchNetSource: BranchService) : BranchRepository {
-    //@Inject lateinit var branchNetSource: BranchService
-    //@Inject lateinit var branchDBSource: BranchDao
+class BranchRepositoryImpl @Inject constructor(val branchNetSource: BranchService, val branchDao: BranchDao) : BranchRepository {
 
     init {
         initBranch()
@@ -56,32 +56,20 @@ class BranchRepositoryImpl @Inject constructor(val branchNetSource: BranchServic
 
 //            address1.forEach { Log.e(it) }
 //            address2.forEach { Log.e(it) }
-//            branchDBSource.insertBranch(*branchForDb)
+            branchDao.insertBranch(*branchForDb)
 
             PP.LAST_BRANCH_SYNC.set(System.currentTimeMillis())
         }
 
     }
 
-    private suspend fun isUpdateBranch(): Boolean {
+    private fun isUpdateBranch(): Boolean {
         return true
-//        Log.e(System.currentTimeMillis(), PP.LAST_BRANCH_SYNC.getLong(), System.currentTimeMillis() - PP.LAST_BRANCH_SYNC.getLong(), if (System.currentTimeMillis() - PP.LAST_BRANCH_SYNC.getLong() > TimeUnit.MINUTES.toMillis(10)) "Need Sync" else "Synced")
-//        return System.currentTimeMillis() - PP.LAST_BRANCH_SYNC.getLong() > TimeUnit.MINUTES.toMillis(10)
+        Log.e(System.currentTimeMillis(), PP.LAST_BRANCH_SYNC.getLong(), System.currentTimeMillis() - PP.LAST_BRANCH_SYNC.getLong(), if (System.currentTimeMillis() - PP.LAST_BRANCH_SYNC.getLong() > TimeUnit.MINUTES.toMillis(10)) "Need Sync" else "Synced")
+        return System.currentTimeMillis() - PP.LAST_BRANCH_SYNC.getLong() > TimeUnit.MINUTES.toMillis(10)
     }
 
-    override suspend fun getBranch(): List<BranchEntity> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override suspend fun getBranchByRect(l: Double, t: Double, r: Double, b: Double): List<BranchEntity> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override suspend fun getBranchByKeyword(keyword: String): List<BranchEntity> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    //override suspend fun getBranch(): List<BranchEntity> = branchDBSource.getBranch()
-    //override suspend fun getBranchByRect(l: Double, t: Double, r: Double, b: Double): List<BranchEntity> = branchDBSource.getBranchByRect(l, t, r, b)
-    //override suspend fun getBranchByKeyword(keyword: String): List<BranchEntity> = branchDBSource.getBranchByKeyword(keyword)
+    override suspend fun getBranch(): List<BranchEntity> = branchDao.getBranch()
+    override suspend fun getBranchByRect(l: Double, t: Double, r: Double, b: Double): List<BranchEntity> = branchDao.getBranchByRect(l, t, r, b)
+    override suspend fun getBranchByKeyword(keyword: String): List<BranchEntity> = branchDao.getBranchByKeyword(keyword)
 }

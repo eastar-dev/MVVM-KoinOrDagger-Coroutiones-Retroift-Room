@@ -21,7 +21,6 @@ class AppActivity : AppCompatActivity() {
                 run()
             }
         })
-
     }
 
     fun run() {

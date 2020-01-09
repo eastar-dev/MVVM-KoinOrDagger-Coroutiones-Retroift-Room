@@ -22,17 +22,4 @@ class AppMain : AppCompatActivity() {
                     .commitNow()
         }
     }
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_app)
-//    }
-//
-//    fun onAppToLib1(v: View) {
-//        startActivity(Intent(v.context, Lib1Activity::class.java))
-//    }
-//
-//    fun onAppToLib2(v: View) {
-//        startActivity(Intent(v.context, Lib2Activity::class.java))
-//    }
 }

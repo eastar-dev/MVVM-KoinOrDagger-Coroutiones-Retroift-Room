@@ -13,7 +13,6 @@ import dev.eastar.branch.repository.BranchRepository
 import dev.eastar.branch.ui.BranchMap
 import javax.inject.Provider
 
-//@Module(includes = [BranchRepository::class])
 @Module
 class BranchViewModule {
     @Provides

@@ -6,13 +6,11 @@ import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import dagger.android.support.DaggerApplication
-import dev.eastar.branch.di.module.BranchMapModule
-import dev.eastar.branch.di.module.BranchViewModule
-import dev.eastar.branch.di.module.RepositoryModule
-import dev.eastar.branch.di.module.RetrofitModule
+import dev.eastar.branch.di.module.*
 import javax.inject.Singleton
 
 @Component(modules = [AndroidSupportInjectionModule::class
+    , RoomModule::class
     , RetrofitModule::class
     , RepositoryModule::class
     , BranchViewModule::class

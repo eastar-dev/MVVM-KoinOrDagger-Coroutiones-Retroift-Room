@@ -22,7 +22,6 @@ class RetrofitModule {
     @Provides
     fun provideBranchService(): BranchService {
         return Retrofit.Builder()
-
                 .baseUrl("https://openhanafn.ttmap.co.kr/")
                 .client(OkHttpClient.Builder()
                         .connectTimeout(10L, TimeUnit.SECONDS)
