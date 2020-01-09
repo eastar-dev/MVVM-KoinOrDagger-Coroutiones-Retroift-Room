@@ -8,12 +8,14 @@ import dagger.android.support.DaggerAppCompatActivity
 //import dev.eastar.app_lib1.Lib1Activity
 //import dev.eastar.app_lib2.Lib2Activity
 
+import android.view.WindowManager
 import dev.eastar.branch.ui.BranchMain
 import javax.inject.Inject
 
 class AppMain : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             supportFragmentManager
