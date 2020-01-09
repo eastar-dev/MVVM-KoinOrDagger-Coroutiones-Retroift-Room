@@ -14,8 +14,8 @@ import javax.inject.Inject
 class BranchViewModel @Inject constructor(val repository: BranchRepository) : ViewModel() {
 
     val progress by lazy { MutableLiveData<Int>() }
-    val branchsInMap by lazy { MutableLiveData<List<BranchEntity>>() }
-    val branchsTeling by lazy { MutableLiveData<BranchEntity>() }
+    val branchInMap by lazy { MutableLiveData<List<BranchEntity>>() }
+    val branchTel by lazy { MutableLiveData<BranchEntity>() }
 
     fun getBranch() {
         viewModelScope.launch {
@@ -30,28 +30,20 @@ class BranchViewModel @Inject constructor(val repository: BranchRepository) : Vi
     }
 
     fun searchInMap(mapView: MapView) {
-//        Log.e(mapView, mapView.mapPointBounds.bottomLeft.mapPointGeoCoord.longitude
-//                , mapView.mapPointBounds.topRight.mapPointGeoCoord.latitude
-//                , mapView.mapPointBounds.topRight.mapPointGeoCoord.longitude
-//                , mapView.mapPointBounds.bottomLeft.mapPointGeoCoord.latitude)
         viewModelScope.launch {
-            val branchsAll = repository.getBranch()
-            Log.e("queryed branchsAll.size", branchsAll.size)
-
-            val branchs = repository.getBranchByRect(mapView.mapPointBounds.bottomLeft.mapPointGeoCoord.longitude
+            val branch = repository.getBranchByRect(mapView.mapPointBounds.bottomLeft.mapPointGeoCoord.longitude
                     , mapView.mapPointBounds.topRight.mapPointGeoCoord.latitude
                     , mapView.mapPointBounds.topRight.mapPointGeoCoord.longitude
                     , mapView.mapPointBounds.bottomLeft.mapPointGeoCoord.latitude
             )
-            branchsInMap.value = branchs
-//            Log.e("queryed", branchsInMap.value)
-            Log.e("queryed branchsAll.size", branchs.size)
+            branchInMap.value = branch
+            Log.e("queryed branchsAll.size", branch.size)
         }
     }
 
     fun touchedPoiItem(branch: BranchEntity) {
         if (branch.tel?.replace("\\D".toRegex(), "").isNullOrBlank())
             return
-        branchsTeling.value = branch
+        branchTel.value = branch
     }
 }

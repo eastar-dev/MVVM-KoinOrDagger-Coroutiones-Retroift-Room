@@ -71,8 +71,8 @@ class BranchMap : BFragment(), HasAndroidInjector {
         bb.kakaoMap.setCurrentLocationEventListener(mOnCurrentLocationEventListener)
 
         //livedata observer
-        vm.branchsInMap.observe(this@BranchMap, Observer<List<BranchEntity>> { updateMapPoi(it) })
-        vm.branchsTeling.observe(this@BranchMap, Observer<BranchEntity> { showTelDialog(it) })
+        vm.branchInMap.observe(this@BranchMap, Observer<List<BranchEntity>> { updateMapPoi(it) })
+        vm.branchTel.observe(this@BranchMap, Observer<BranchEntity> { showTelDialog(it) })
 
         bb.showList.setOnClickListener { fragmentManager?.beginTransaction()?.add(R.id.branch_container, BranchList())?.addToBackStack(null)?.commitAllowingStateLoss() }
         bb.showSearch.setOnClickListener { fragmentManager?.beginTransaction()?.add(R.id.branch_container, Search())?.addToBackStack(null)?.commitAllowingStateLoss() }
