@@ -24,10 +24,10 @@
             android:dividerHeight="5dp"
             android:listSelector="@android:color/transparent"
             android:orientation="vertical"
-            tools:itemCount="20"
-            tools:listitem="@layout/branch_list_item"
             android:padding="15dp"
             android:scrollbars="none"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="20"
+            tools:listitem="@layout/branch_list_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

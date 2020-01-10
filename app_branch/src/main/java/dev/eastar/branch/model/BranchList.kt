@@ -25,7 +25,6 @@ class BranchList {
 
 fun toWGS84(location: Int): Double = location / 1_000_000.0
 
-
 data class BranchH(
         var isExtend: String? = "",
         var resultList: List<Result?>? = listOf(),

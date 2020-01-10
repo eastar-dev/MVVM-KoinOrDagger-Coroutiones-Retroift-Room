@@ -66,7 +66,6 @@ class BranchMap : BFragment(), HasAndroidInjector {
         return bb.root
     }
 
-
     private fun inset(rootView: View) {
         rootView.setOnApplyWindowInsetsListener { view, insets ->
             view.setPadding(insets.systemWindowInsetLeft
