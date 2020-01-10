@@ -25,11 +25,6 @@ import eastar.base.BFragment
 import net.daum.mf.map.api.*
 import javax.inject.Inject
 
-/**
- * A [Fragment] that injects its members in [.onAttach] and can be used to
- * inject child [Fragment]s attached to it. Note that when this fragment gets reattached, its
- * members will be injected again.
- */
 class BranchMap : BFragment(), HasAndroidInjector {
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
@@ -47,9 +42,8 @@ class BranchMap : BFragment(), HasAndroidInjector {
 
     @Suppress("NonAsciiCharacters", "ObjectPropertyName")
     companion object {
-        private const val ZOOM_도보이동가능반경 = 2
-        private val 하나은행본사 = MapPoint.mapPointWithGeoCoord(37.56641387939453, 126.98188018798828)
-        private const val MAPAPIKEY = "1de0dd82efcb553ad7647a52cb4845fdf701be6b"
+        private const val ZOOM_WARK = 2
+        private val startPoint = MapPoint.mapPointWithGeoCoord(37.56641387939453, 126.98188018798828)
     }
 
     private var mLastMapPOIItem: MapPOIItem? = null
@@ -128,7 +122,7 @@ class BranchMap : BFragment(), HasAndroidInjector {
         override fun onCurrentLocationUpdate(mapView: MapView, mapPoint: MapPoint, v: Float) {
             Log.e("현재위치이동 ok")
             bb.currentPosition.isSelected = false
-            mapView.setMapCenterPointAndZoomLevel(mapPoint, ZOOM_도보이동가능반경, false)
+            mapView.setMapCenterPointAndZoomLevel(mapPoint, ZOOM_WARK, false)
             mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOff
             vm.searchInMap(mapView)
         }
@@ -142,7 +136,7 @@ class BranchMap : BFragment(), HasAndroidInjector {
 
         override fun onMapViewInitialized(mapView: MapView) {
             Log.e("초기화됨")
-            mapView.setMapCenterPointAndZoomLevel(하나은행본사, ZOOM_도보이동가능반경, false)
+            mapView.setMapCenterPointAndZoomLevel(startPoint, ZOOM_WARK, false)
             if (setCenterItem())
                 return
             Log.e("이동위치없음 초기화시에는 권한이 있을때만 이동")
@@ -153,7 +147,7 @@ class BranchMap : BFragment(), HasAndroidInjector {
         }
 
         override fun onMapViewMoveFinished(mapView: MapView, mapPoint: MapPoint) {
-            Log.e(mapView.zoomLevelFloat, ZOOM_도보이동가능반경, "자동검색")
+            Log.e(mapView.zoomLevelFloat, ZOOM_WARK, "자동검색")
             vm.onMapViewMoveFinished(mapView, mapPoint)
         }
 
@@ -219,7 +213,7 @@ class BranchMap : BFragment(), HasAndroidInjector {
                 if (mLastMapPOIItem != null)
                     mapView.deselectPOIItem(mLastMapPOIItem)
 
-                mapView.setMapCenterPointAndZoomLevel(mapPOIItem.mapPoint, ZOOM_도보이동가능반경, true)
+                mapView.setMapCenterPointAndZoomLevel(mapPOIItem.mapPoint, ZOOM_WARK, true)
                 mapView.selectPOIItem(mapPOIItem, true)
                 mLastMapPOIItem = mapPOIItem
                 break
@@ -278,35 +272,6 @@ class BranchMap : BFragment(), HasAndroidInjector {
     private fun isLocationPermit(context: Context) = PermissionRequest.isPermissions(context, Manifest.permission.ACCESS_FINE_LOCATION)
 
     private fun locationPermit(context: Context) = PermissionRequest.builder(context, Manifest.permission.ACCESS_FINE_LOCATION).run()
-
-//    private fun locationPermit(context: Context) {
-//        val text = ("앱 접근권한 안내\n"//
-//                + "\n"//
-//                + "\n"//
-//                + "앱에서 사용하는 접근 권한에 대하여 아래와 같이 안내해 드립니다.\n"//
-//                + "\n"//
-//                + "선택적 접근권한의 경우 동의 하지 않으실 수 있으나. 해당 접근권한이 필요한 일부 기능 사용에 제한이 있을 수 있습니다.\n"//
-//                + "\n"//
-//                + "\n"//
-//                + "◼︎ 선택적 접근 권한\n"//
-//                + "  위치 : 내위치 주변 지점 ATM검색을 위하여 필요합니다.\n" //
-//                + "\n")//
-//        val requestMessage = SpannableString(text)
-//        requestMessage.setSpan(StyleSpan(Typeface.BOLD), 0, 9, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-//
-//        val denyMessage = ("동의하지 않으시면 기능사용에 제한이 있을 수 있습니다.\n"//
-//                + "설정 버튼을 이용하여 동의여부를 직접 수정 할 수 있습니다.\n"//
-//                + "\n"//
-//                + "\n"//
-//                + "  ※ 언제든 동의여부를 바꿀 수 있습니다.\n"//
-//                + "    안드로이드설정>애플리케이션 관리>애플리케이션 관리자>" + context.appName + ">권한 에서 가능합니다.\n"//
-//                + "  ※ 안드로이드 6.0미만의 경우 필수,선택 구분 없이 설치시에 모든 권한 동의를 하셔야 정상적인 이용이 가능합니다.\n")//
-//
-//        PermissionRequest.builder(context, Manifest.permission.ACCESS_FINE_LOCATION)//
-//                .setRequestMessage(requestMessage)//
-//                .setDenyMessage(denyMessage)//
-//                .run()
-//    }
 
     private fun drawXBox(mapView: MapView, s: MapPoint, e: MapPoint) {
         val sx = s.mapPointScreenLocation.x

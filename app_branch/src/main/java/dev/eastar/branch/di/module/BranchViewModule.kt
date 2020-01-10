@@ -2,7 +2,6 @@ package dev.eastar.branch.di.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -31,7 +30,8 @@ class BranchViewModule {
     @Module
     class InjectViewModule {
         @Provides
-        fun provideBranchViewModel(factory: ViewModelProvider.Factory, target: BranchMap) =
-                ViewModelProviders.of(target, factory).get(BranchViewModel::class.java)
+        fun provideBranchViewModel(factory: ViewModelProvider.Factory, owner: BranchMap): BranchViewModel {
+            return ViewModelProvider(owner, factory).get(BranchViewModel::class.java)
+        }
     }
 }
