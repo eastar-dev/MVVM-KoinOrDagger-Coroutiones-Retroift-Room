@@ -86,6 +86,5 @@ dependencies {
     debugApi 'com.github.eastar-dev:EastarLog:4.0.5'
     releaseApi 'com.github.eastar-dev:EastarLogNoOp:4.0.2'
 
-    releaseApi files('libs/common.jar')
-    debugApi project(':common')
+    api project(':common')
 }

@@ -2,6 +2,7 @@ package eastar.base
 
 import android.app.NotificationManager
 import android.base.CApplication
+import android.base.CD
 import android.content.Context
 import android.log.Log
 import android.log.logActivity
@@ -12,6 +13,7 @@ abstract class BDApplication : CApplication() {
 
     override fun attachBaseContext(base: Context) {
         DD.attachBaseContext()
+        CD.application = this
         Log.e(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
         Log.e("시작됨>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
         Log.e(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")

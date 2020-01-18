@@ -4,7 +4,6 @@ import android.log.Log
 import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.Response
-import okhttp3.internal.http.HttpHeaders
 import okio.Buffer
 import okio.GzipSource
 import java.io.EOFException
@@ -20,12 +19,12 @@ class OkHttp3Logger : Interceptor {
 
         val _out = StringBuilder()
         if (_OUT_1)
-            _out.append("--> " + request.method() + ":" + request.url())
+            _out.append("--> " + request.method + ":" + request.url)
 
         val _out_c = StringBuilder()
         if (_OUT_C) {
-            val headers = request.headers()
-            for (i in 0 until headers.size())
+            val headers = request.headers
+            for (i in 0 until headers.size)
                 if (headers.name(i) == COOKIE)
                     _out_c.devide.append(headers.name(i) + ": " + headers.value(i))
             _out.devide.append(_out_c)
@@ -33,15 +32,15 @@ class OkHttp3Logger : Interceptor {
 
         val _out_h = StringBuilder()
         if (_OUT_H) {
-            val headers = request.headers()
-            for (i in 0 until headers.size())
+            val headers = request.headers
+            for (i in 0 until headers.size)
                 if (headers.name(i) != COOKIE)
                     _out_h.devide.append(headers.name(i) + ": " + headers.value(i))
             _out.devide.append(_out_h)
         }
 
-        val body = request.body()
-        if (_OUT_2 && body != null && !bodyHasUnknownEncoding(request.headers())) {
+        val body = request.body
+        if (_OUT_2 && body != null && !bodyHasUnknownEncoding(request.headers)) {
             val buffer = Buffer()
             body.writeTo(buffer)
             val contentType = body.contentType()
@@ -51,10 +50,10 @@ class OkHttp3Logger : Interceptor {
 
 
             if (isPlaintext(buffer)) {
-                _out.devide.append(Log._DUMP(buffer.readString(charset!!)))
-                _out.devide.append("--> END " + request.method() + " (" + body.contentLength())
+                _out.devide.append(buffer.readString(charset!!))
+                _out.devide.append("--> END " + request.method + " (" + body.contentLength())
             } else {
-                _out.devide.append("--> END " + request.method() + " (binary " + body.contentLength())
+                _out.devide.append("--> END " + request.method + " (binary " + body.contentLength())
             }
         }
         Log.e(_out)
@@ -70,17 +69,17 @@ class OkHttp3Logger : Interceptor {
 
         val tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs)
 
-        val responseBody = response.body()
+        val responseBody = response.body
         val contentLength = responseBody!!.contentLength()
 
         val _in = StringBuilder()
         if (_IN_1)
-            _in.append("<-- ${response.code()} ${response.message()} ${response.request().url()} (${tookMs}ms)")
+            _in.append("<-- ${response.code} ${response.message} ${response.request.url} (${tookMs}ms)")
 
         val _in_c = StringBuilder()
         if (_IN_C) {
-            val headers = request.headers()
-            for (i in 0 until headers.size())
+            val headers = request.headers
+            for (i in 0 until headers.size)
                 if (headers.name(i) == SET_COOKIE)
                     _in_c.devide.append(headers.name(i) + ": " + headers.value(i))
             _in.devide.append(_in_c)
@@ -88,23 +87,23 @@ class OkHttp3Logger : Interceptor {
 
         val _in_h = StringBuilder()
         if (_IN_H) {
-            val headers = response.headers()
-            for (i in 0 until headers.size())
+            val headers = response.headers
+            for (i in 0 until headers.size)
                 if (headers.name(i) != SET_COOKIE)
                     _in_h.devide.append(headers.name(i) + ": " + headers.value(i))
             _in.devide.append(_in_h)
         }
 
 
-        if (_IN_2 && HttpHeaders.hasBody(response) && !bodyHasUnknownEncoding(response.headers())) {
+        if (_IN_2 && !bodyHasUnknownEncoding(response.headers)) {
             val source = responseBody.source()
             source.request(java.lang.Long.MAX_VALUE) // Buffer the entire body.
             var buffer = source.buffer
 
             var gzippedLength: Long? = null
-            val headers = response.headers()
+            val headers = response.headers
             if ("gzip".equals(headers.get("Content-Encoding"), ignoreCase = true)) {
-                gzippedLength = buffer.size()
+                gzippedLength = buffer.size
                 var gzippedResponseBody: GzipSource? = null
                 try {
                     gzippedResponseBody = GzipSource(buffer.clone())
@@ -122,15 +121,15 @@ class OkHttp3Logger : Interceptor {
 
 
             if (!isPlaintext(buffer))
-                _in.devide.append("<-- END HTTP (binary " + buffer.size() + "-byte body omitted)")
+                _in.devide.append("<-- END HTTP (binary " + buffer.size + "-byte body omitted)")
 
             if (contentLength != 0L)
-                _in.devide.append(Log._DUMP(buffer.clone().readString(charset!!)))
+                _in.devide.append(buffer.clone().readString(charset!!))
 
             if (gzippedLength != null)
-                _in.devide.append("<-- END HTTP (" + buffer.size() + "-byte, " + gzippedLength + "-gzipped-byte body)")
+                _in.devide.append("<-- END HTTP (" + buffer.size + "-byte, " + gzippedLength + "-gzipped-byte body)")
             else
-                _in.devide.append("<-- END HTTP (" + buffer.size() + "-byte body)")
+                _in.devide.append("<-- END HTTP (" + buffer.size + "-byte body)")
         }
 
         if (_in.length > 1000)
@@ -179,7 +178,7 @@ class OkHttp3Logger : Interceptor {
         internal fun isPlaintext(buffer: Buffer): Boolean {
             try {
                 val prefix = Buffer()
-                val byteCount = if (buffer.size() < 64) buffer.size() else 64
+                val byteCount = if (buffer.size < 64) buffer.size else 64
                 buffer.copyTo(prefix, 0, byteCount)
                 for (i in 0..15) {
                     if (prefix.exhausted()) {
@@ -195,6 +194,5 @@ class OkHttp3Logger : Interceptor {
                 return false // Truncated UTF-8 sequence.
             }
         }
-
     }
 }

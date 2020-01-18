@@ -15,6 +15,6 @@ interface BranchService {
 }
 
 val netModule = module {
-    single { createOkHttpClient(get()) }
+    single { createOkHttpClient() }
     single { createService(get(), "https://openhanafn.ttmap.co.kr", BranchService::class.java) }
 }

@@ -1,6 +1,6 @@
 package android.retrofit
 
-import android.content.Context
+import android.base.CD
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.readystatesoftware.chuck.ChuckInterceptor
 import okhttp3.ConnectionPool
@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
-fun createOkHttpClient(context: Context): OkHttpClient {
+fun createOkHttpClient(): OkHttpClient {
 
     return OkHttpClient.Builder()
             .connectTimeout(10L, TimeUnit.SECONDS)
@@ -18,7 +18,7 @@ fun createOkHttpClient(context: Context): OkHttpClient {
             .addNetworkInterceptor(StethoInterceptor())
             .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC })
             .addInterceptor(OkHttp3Logger())
-            .addInterceptor(ChuckInterceptor(context))
+            .addInterceptor(ChuckInterceptor(CD.application))
             .cookieJar(cookieManager)
             .build()
 }

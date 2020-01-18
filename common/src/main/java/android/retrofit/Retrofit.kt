@@ -15,12 +15,11 @@ val cookieManager = object : CookieJar {
     }
 
     override fun loadForRequest(url: HttpUrl): List<Cookie> {
-        return CookieManager.getInstance().getCookie(url.toString())?.let { cookies ->
-            cookies.split("[,;]".toRegex())
-                    .dropLastWhile { it.isEmpty() }
-                    .map { Cookie.parse(url, it.trim())!! }
-                    .toList()
-        } ?: emptyList()
+        return CookieManager.getInstance().getCookie(url.toString())
+                ?.split("[,;]".toRegex())
+                ?.dropLastWhile { it.isEmpty() }
+                ?.map { Cookie.parse(url, it.trim())!! }
+                ?.toList() ?: emptyList()
     }
 }
 
@@ -33,31 +32,3 @@ fun <T> createService(okHttpClient: OkHttpClient, baseUrl: String, service: Clas
             .build()
             .create(service)
 }
-
-
-
-
-//interface NetEnty {
-//    @POST
-//    fun <T : NetEnty> async(@Url url: String, @QueryMap query: Map<String, String>): T
-//
-//    fun service() = Retrofit.Builder()
-//            .client(createOkHttpClient())
-//            .addConverterFactory(GsonConverterFactory.create())
-//
-//}
-//
-//abstract class SmartEnty : NetEnty {
-//    data class Data(val firebase_token: String?)
-//
-//    val observable by lazy {
-//        service()
-//                .baseUrl("")
-//                .build()
-//                .create(this::class.java)
-//                .async<SmartEnty>("", mapOf())
-//    }
-//}
-
-
-

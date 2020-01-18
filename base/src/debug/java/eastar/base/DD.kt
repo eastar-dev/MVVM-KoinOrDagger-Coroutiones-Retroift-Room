@@ -1,6 +1,5 @@
 package eastar.base
 
-import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.base.CD
 import android.content.Context
@@ -97,7 +96,7 @@ class DD {
         private fun uncaughtExceptionHandler(context: Context) {
             val dueHandler = Thread.getDefaultUncaughtExceptionHandler()
             Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
-                Log.flog(context.packageName, Log._DUMP_StackTrace(throwable))
+                Log.flog(context.packageName, throwable.stackTrace?.contentToString())
                 dueHandler.uncaughtException(thread, throwable)
             }
         }
