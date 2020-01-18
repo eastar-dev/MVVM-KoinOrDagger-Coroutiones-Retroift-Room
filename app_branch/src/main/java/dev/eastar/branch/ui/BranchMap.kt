@@ -1,6 +1,7 @@
 package dev.eastar.branch.ui
 
 import android.Manifest
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.log.Log
@@ -12,12 +13,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import dagger.android.support.AndroidSupportInjection
 import dev.eastar.branch.R
 import dev.eastar.branch.databinding.BranchMapBinding
+import dev.eastar.branch.di.scope.DaggerBranchComponent
 import dev.eastar.branch.model.BranchEntity
 import dev.eastar.branch.presenter.BranchViewModel
 import dev.eastar.permission.PermissionRequest
@@ -25,13 +23,14 @@ import eastar.base.BFragment
 import net.daum.mf.map.api.*
 import javax.inject.Inject
 
-class BranchMap : BFragment(), HasAndroidInjector {
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
-    override fun androidInjector(): AndroidInjector<Any> = androidInjector
+class BranchMap : BFragment() {
     override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
+        DaggerBranchComponent.builder()
+                .application(context.applicationContext as Application)
+                .context(context.applicationContext)
+                .build()
+                .inject(this)
+
         super.onAttach(context)
     }
 

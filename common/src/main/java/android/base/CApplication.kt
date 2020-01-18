@@ -1,6 +1,8 @@
 package android.base
 
-abstract class CApplication : dagger.android.support.DaggerApplication() {
+import android.app.Application
+
+abstract class CApplication : Application() {
     init {
         CD.application = this
     }

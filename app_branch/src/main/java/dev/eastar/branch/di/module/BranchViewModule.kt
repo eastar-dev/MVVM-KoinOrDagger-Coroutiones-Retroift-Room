@@ -15,7 +15,7 @@ import javax.inject.Provider
 @Module
 class BranchViewModule {
     @Provides
-    fun provideViewModelFactory(providers: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>): ViewModelProvider.Factory =
+    fun provideViewModelFactory(providers: Map<Class<out ViewModel>, Provider<ViewModel>>): ViewModelProvider.Factory =
             AppViewModelFactory(providers)
 
     @Module
