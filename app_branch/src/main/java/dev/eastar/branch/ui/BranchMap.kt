@@ -11,6 +11,8 @@ import android.util.toast
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import dev.eastar.branch.R
@@ -23,13 +25,14 @@ import eastar.base.BFragment
 import net.daum.mf.map.api.*
 import javax.inject.Inject
 
+
 class BranchMap : BFragment() {
     override fun onAttach(context: Context) {
         DaggerBranchComponent.builder()
-                .application(context.applicationContext as Application)
-                .context(context.applicationContext)
-                .build()
-                .inject(this)
+            .application(context.applicationContext as Application)
+            .context(context.applicationContext)
+            .build()
+            .inject(this)
 
         super.onAttach(context)
     }
@@ -48,9 +51,11 @@ class BranchMap : BFragment() {
     private var mLastMapPOIItem: MapPOIItem? = null
     private var mCenterItem: BranchEntity? = null
     private lateinit var bb: BranchMapBinding
+
     //private val vm: BranchViewModel by activityViewModels()
     //val vm: BranchViewModel by activityViewModels()
-    @Inject lateinit var vm: BranchViewModel
+    @Inject
+    lateinit var vm: BranchViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         bb = BranchMapBinding.inflate(inflater, container, false)
@@ -62,9 +67,9 @@ class BranchMap : BFragment() {
     private fun inset(rootView: View) {
         rootView.setOnApplyWindowInsetsListener { view, insets ->
             view.setPadding(insets.systemWindowInsetLeft
-                    , insets.systemWindowInsetTop
-                    , insets.systemWindowInsetRight
-                    , insets.systemWindowInsetBottom)
+                , insets.systemWindowInsetTop
+                , insets.systemWindowInsetRight
+                , insets.systemWindowInsetBottom)
             insets
         }
     }
@@ -87,8 +92,8 @@ class BranchMap : BFragment() {
         branch ?: return
 
         val builder = AlertDialog.Builder(requireContext())
-                .setMessage(branch.info)
-                .setPositiveButton("닫기", null)
+            .setMessage(branch.info)
+            .setPositiveButton("닫기", null)
         if (!branch.tel?.replace("\\D".toRegex(), "").isNullOrBlank())
             builder.setNegativeButton("전화걸기") { _, _ -> startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + branch.tel))) }
 
@@ -174,17 +179,31 @@ class BranchMap : BFragment() {
     private fun updateMapPoi(branchs: List<BranchEntity>?) {
         branchs ?: return
 
+        bb.kakaoMap.setCalloutBalloonAdapter(CustomCalloutBalloonAdapter())
+
         val mapView = bb.kakaoMap
         val poiItems = mapView.poiItems.flatMap { listOf(it.userObject as BranchEntity to it) }.toMap()
         branchs
-                .subtract(poiItems.keys)
-                .forEach { mapView.addPOIItem(getPOI(it)) }
+            .subtract(poiItems.keys)
+            .forEach { mapView.addPOIItem(getPOI(it)) }
 
         poiItems.keys
-                .subtract(branchs)
-                .forEach { mapView.removePOIItem(poiItems[it]) }
+            .subtract(branchs)
+            .forEach { mapView.removePOIItem(poiItems[it]) }
 
         //256이상의 MapPOIItem를 포함하면 죽는다 JNI ERROR (app bug): local reference table overflow (max=512)
+    }
+
+    inner class CustomCalloutBalloonAdapter : CalloutBalloonAdapter {
+        private val balloon = View.inflate(requireContext(), android.R.layout.simple_list_item_2, null)
+        override fun getCalloutBalloon(poiItem: MapPOIItem): View {
+            balloon.findViewById<ImageView>(android.R.id.icon).setImageResource(android.R.drawable.ic_dialog_alert)
+            balloon.findViewById<TextView>(android.R.id.text1).text = "text1"
+            balloon.findViewById<TextView>(android.R.id.text2).text = "text2"
+            return balloon
+        }
+
+        override fun getPressedCalloutBalloon(poiItem: MapPOIItem): View? = null
     }
 
     private fun getPOI(branch: BranchEntity): MapPOIItem {
