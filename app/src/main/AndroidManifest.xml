@@ -2,14 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="dev.eastar.branch.app">
+    package="dev.eastar.mvvm">
 
     <dist:module dist:instant="true" />
     <application
-        android:name=".AppApplication"
+        android:name="dev.eastar.branch.app.AppApplication"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".AppMain"
+            android:name="dev.eastar.branch.app.AppMain"
             android:resizeableActivity="true"
             tools:targetApi="n">
             <intent-filter>
@@ -17,6 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AppActivity" />
+        <activity android:name="dev.eastar.branch.app.AppActivity" />
     </application>
 </manifest>
