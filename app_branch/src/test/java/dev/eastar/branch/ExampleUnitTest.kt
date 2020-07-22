@@ -1,6 +1,9 @@
 package dev.eastar.branch
 
 import android.util.accctformat
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -17,7 +20,6 @@ class ExampleUnitTest {
 
     @Test
     fun accctformattext() {
-
         println("010-225-225698" accctformat "(\\d{3})(\\d{0,6})(\\d*)")
         println("10-225-225698" accctformat "(\\d{3})(\\d{0,6})(\\d*)")
         println("0-225-225698" accctformat "(\\d{3})(\\d{0,6})(\\d*)")
@@ -33,6 +35,7 @@ class ExampleUnitTest {
         println("8" accctformat "(\\d{3})(\\d{0,6})(\\d*)")
         println("" accctformat "(\\d{3})(\\d{0,6})(\\d*)")
     }
+
 }
 
 

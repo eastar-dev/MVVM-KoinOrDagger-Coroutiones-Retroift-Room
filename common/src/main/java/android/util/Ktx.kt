@@ -188,13 +188,13 @@ infix fun Uri.removeQuery(removeQuery: String) =
 val CharSequence.onlyNumber get() = replace("\\D".toRegex(), "")
 
 /**"1234567890" accctformat "(\\d{3})(\\d{0,6})(\\d*)"  -> 123-456789-0*/
-infix fun CharSequence.accctformat(deviderRegex: Regex) = deviderRegex.matchEntire(onlyNumber)
-        ?.run {
-            groupValues
-                    .drop(1)
-                    .takeIf { it.isNotEmpty() }
-                    ?.reduce { l, r -> "$l-$r" }
-        } ?: this@accctformat
+//infix fun CharSequence.accctformat(deviderRegex: String) = deviderRegex.matchEntire(onlyNumber)
+//        ?.run {
+//            groupValues
+//                    .drop(1)
+//                    .takeIf { it.isNotEmpty() }
+//                    ?.reduce { l, r -> "$l-$r" }
+//        } ?: this@accctformat
 
 val SDK_INT = Build.VERSION.SDK_INT
 

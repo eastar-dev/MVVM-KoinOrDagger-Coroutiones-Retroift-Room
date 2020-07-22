@@ -26,8 +26,8 @@ class OkHttp3Logger : Interceptor {
             val headers = request.headers
             for (i in 0 until headers.size)
                 if (headers.name(i) == COOKIE)
-                    _out_c.devide.append(headers.name(i) + ": " + headers.value(i))
-            _out.devide.append(_out_c)
+                    _out_c.LF.append(headers.name(i) + ": " + headers.value(i))
+            _out.LF.append(_out_c)
         }
 
         val _out_h = StringBuilder()
@@ -35,8 +35,8 @@ class OkHttp3Logger : Interceptor {
             val headers = request.headers
             for (i in 0 until headers.size)
                 if (headers.name(i) != COOKIE)
-                    _out_h.devide.append(headers.name(i) + ": " + headers.value(i))
-            _out.devide.append(_out_h)
+                    _out_h.LF.append(headers.name(i) + ": " + headers.value(i))
+            _out.LF.append(_out_h)
         }
 
         val body = request.body
@@ -50,10 +50,10 @@ class OkHttp3Logger : Interceptor {
 
 
             if (isPlaintext(buffer)) {
-                _out.devide.append(buffer.readString(charset!!))
-                _out.devide.append("--> END " + request.method + " (" + body.contentLength())
+                _out.LF.append(buffer.readString(charset!!))
+                _out.LF.append("--> END " + request.method + " (" + body.contentLength())
             } else {
-                _out.devide.append("--> END " + request.method + " (binary " + body.contentLength())
+                _out.LF.append("--> END " + request.method + " (binary " + body.contentLength())
             }
         }
         Log.e(_out)
@@ -81,8 +81,8 @@ class OkHttp3Logger : Interceptor {
             val headers = request.headers
             for (i in 0 until headers.size)
                 if (headers.name(i) == SET_COOKIE)
-                    _in_c.devide.append(headers.name(i) + ": " + headers.value(i))
-            _in.devide.append(_in_c)
+                    _in_c.LF.append(headers.name(i) + ": " + headers.value(i))
+            _in.LF.append(_in_c)
         }
 
         val _in_h = StringBuilder()
@@ -90,8 +90,8 @@ class OkHttp3Logger : Interceptor {
             val headers = response.headers
             for (i in 0 until headers.size)
                 if (headers.name(i) != SET_COOKIE)
-                    _in_h.devide.append(headers.name(i) + ": " + headers.value(i))
-            _in.devide.append(_in_h)
+                    _in_h.LF.append(headers.name(i) + ": " + headers.value(i))
+            _in.LF.append(_in_h)
         }
 
 
@@ -121,26 +121,26 @@ class OkHttp3Logger : Interceptor {
 
 
             if (!isPlaintext(buffer))
-                _in.devide.append("<-- END HTTP (binary " + buffer.size + "-byte body omitted)")
+                _in.LF.append("<-- END HTTP (binary " + buffer.size + "-byte body omitted)")
 
             if (contentLength != 0L)
-                _in.devide.append(buffer.clone().readString(charset!!))
+                _in.LF.append(buffer.clone().readString(charset!!))
 
             if (gzippedLength != null)
-                _in.devide.append("<-- END HTTP (" + buffer.size + "-byte, " + gzippedLength + "-gzipped-byte body)")
+                _in.LF.append("<-- END HTTP (" + buffer.size + "-byte, " + gzippedLength + "-gzipped-byte body)")
             else
-                _in.devide.append("<-- END HTTP (" + buffer.size + "-byte body)")
+                _in.LF.append("<-- END HTTP (" + buffer.size + "-byte body)")
         }
 
-        if (_in.length > 1000)
-            _in.setLength(1000)
+        if (_IN_LIMIT > 0 && _in.length > _IN_LIMIT)
+            _in.setLength(_IN_LIMIT)
 
         Log.p(if (response.isSuccessful) Log.INFO else Log.WARN, _in)
 
         return response
     }
 
-    private val StringBuilder.devide: StringBuilder
+    private val StringBuilder.LF: StringBuilder
         get() = if (isNotEmpty())
             append("\n")
         else
@@ -149,8 +149,8 @@ class OkHttp3Logger : Interceptor {
     private fun bodyHasUnknownEncoding(headers: Headers): Boolean {
         val contentEncoding = headers.get("Content-Encoding")
         return (contentEncoding != null
-                && !contentEncoding.equals("identity", ignoreCase = true)
-                && !contentEncoding.equals("gzip", ignoreCase = true))
+            && !contentEncoding.equals("identity", ignoreCase = true)
+            && !contentEncoding.equals("gzip", ignoreCase = true))
     }
 
     @Suppress("unused", "ObjectPropertyName", "ObjectPropertyName", "MayBeConstant")
@@ -166,11 +166,13 @@ class OkHttp3Logger : Interceptor {
         var _IN_3 = false
         var _IN_H = false
         var _IN_C = false
+        var _IN_LIMIT = 0
 
         val COOKIE = "Cookie"
         val SET_COOKIE = "Set-Cookie"
 
         private val UTF8 = Charset.forName("UTF-8")
+
         /**
          * Returns true if the body in question probably contains human readable text. Uses a small sample
          * of code points to detect unicode control characters commonly used in binary file signatures.

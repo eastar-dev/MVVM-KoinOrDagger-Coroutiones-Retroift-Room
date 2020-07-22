@@ -3,7 +3,7 @@ package dev.eastar.branch.app
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import dev.eastar.branch.ui.BranchMain
+import dev.eastar.branch2.ui.BranchMap
 
 class AppMain : AppCompatActivity() {
 
@@ -12,9 +12,9 @@ class AppMain : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             supportFragmentManager
-                    .beginTransaction()
-                    .replace(android.R.id.content, BranchMain())
-                    .commitNow()
+                .beginTransaction()
+                .replace(android.R.id.content, BranchMap())
+                .commitNow()
         }
     }
 }

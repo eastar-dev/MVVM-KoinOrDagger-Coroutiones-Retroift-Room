@@ -21,15 +21,16 @@ class DD {
 
             OkHttp3Logger.LOG = true
             OkHttp3Logger._OUT_1 = true
-//            OkHttp3Logger._OUT_2 = true
+            OkHttp3Logger._OUT_2 = true
 //            OkHttp3Logger._OUT_3 = true
 //            OkHttp3Logger._OUT_H = true
-            OkHttp3Logger._OUT_C = true
+//            OkHttp3Logger._OUT_C = true
             OkHttp3Logger._IN_1 = true
             OkHttp3Logger._IN_2 = true
+            OkHttp3Logger._IN_LIMIT = 2500
 //            OkHttp3Logger._IN_3 = true
 //            OkHttp3Logger._IN_H = true
-            OkHttp3Logger._IN_C = true
+//            OkHttp3Logger._IN_C = true
             //@formatter:on
         }
 

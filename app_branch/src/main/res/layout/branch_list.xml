@@ -6,18 +6,51 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="dev.eastar.branch.presenter.BranchViewModel" />
+            name="vm"
+            type="dev.eastar.branch2.ui.BranchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/keyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="@dimen/margin"
+
+            android:elevation="4dp"
+            android:maxLines="1"
+            android:paddingStart="@dimen/margin"
+            android:paddingTop="@dimen/space"
+            android:paddingEnd="@dimen/margin"
+            android:paddingBottom="@dimen/space"
+            android:textSize="@dimen/h2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/full_names" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/find"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:minWidth="50dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@+id/keyword"
+            app:layout_constraintEnd_toEndOf="@+id/keyword"
+            app:layout_constraintTop_toTopOf="@+id/keyword" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/keyword"
             android:background="#fff"
             android:cacheColorHint="@android:color/transparent"
             android:divider="@android:color/transparent"

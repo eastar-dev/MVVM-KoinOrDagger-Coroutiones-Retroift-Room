@@ -13,7 +13,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    androidExtensions.features = ["parcelize"]
+    androidExtensions { features = ["parcelize"] }
     buildFeatures.viewBinding = true
     buildFeatures.dataBinding = true
     compileOptions {

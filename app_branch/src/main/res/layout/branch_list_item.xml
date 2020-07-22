@@ -6,53 +6,56 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff"
-            android:gravity="center_vertical"
-            android:padding="6dp">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:minHeight="74dp">
 
             <ImageView
                 android:id="@+id/icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/hana_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/name"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:src="@android:drawable/ic_menu_info_details" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_weight="1"
                 android:ellipsize="end"
-                android:singleLine="true"
-                android:textColor="#888"
-                android:textSize="15sp"
+                android:maxLines="2"
+                android:textColor="#021715"
+                android:textSize="@dimen/h2"
                 app:layout_constraintBottom_toBottomOf="@+id/icon"
                 app:layout_constraintEnd_toStartOf="@+id/distance"
                 app:layout_constraintStart_toEndOf="@+id/icon"
                 app:layout_constraintTop_toTopOf="@+id/icon"
-                tools:text="로지은행 슌탓지점" />
+                tools:text="@tools:sample/full_names" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
-                android:textColor="#888"
-                android:textSize="15sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/name"
+                android:maxLines="1"
+                android:textColor="#021715"
+                android:textSize="@dimen/h2"
+                app:layout_constraintBottom_toBottomOf="@+id/name"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/name"
-                tools:text="9999m" />
+                app:layout_constraintTop_toTopOf="@+id/name"
+                tools:text="100m" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

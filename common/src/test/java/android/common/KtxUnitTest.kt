@@ -27,20 +27,20 @@ public class KtxUnitTest {
     }
 
 
-
     @Test
     fun `accctformat test`() {
-        Log.MODE = Log.eMODE.SYSTEMOUT
+        Log.OUTPUT_CHANNEL = Log.Channel.SYSTEM
         Log.e("1234567890" accctformat "\\d{3}\\d{0,6}\\d*".toRegex())
         Log.e("1234567890" accctformat "\\d{3}\\d{0,6}".toRegex())
         Log.e("1234567890" accctformat "\\d{3}\\d{0,6}\\d".toRegex())
         Log.e("1234567890" accctformat "(\\d{3})(\\d{0,6})(\\d*)".toRegex())
         Log.e("12345678901234567890" accctformat "(\\d{3})(\\d{0,6})(\\d*)".toRegex())
     }
+
     @Test
     fun `removeQuery test`() {
-        Log.MODE = Log.eMODE.SYSTEMOUT
-        val uri:Uri? = Uri.parse("https://www.naver.com/path/path?a=1&b=2&c=3#hello")
+        Log.OUTPUT_CHANNEL = Log.Channel.SYSTEM
+        val uri: Uri? = Uri.parse("https://www.naver.com/path/path?a=1&b=2&c=3#hello")
         Log.e(uri?.removeQuery("a"))
     }
 }
