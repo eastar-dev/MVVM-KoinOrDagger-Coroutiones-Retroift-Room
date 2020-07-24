@@ -14,5 +14,9 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="1760c5f300c44f76f8da2b97750fab48" />
+        <activity
+            android:name="dev.eastar.branch2.ui.BranchMain"
+            android:theme="@style/MapTheme"
+            android:exported="true" />
     </application>
 </manifest>

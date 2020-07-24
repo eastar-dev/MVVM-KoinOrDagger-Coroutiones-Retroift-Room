@@ -1,8 +1,8 @@
 package dev.eastar.branch2.ui
 
 
+//import dev.eastar.branch2.model.poiIcon
 import android.Manifest
-import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -16,27 +16,22 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import dev.eastar.branch.databinding.BranchMapBinding
-import dev.eastar.branch2.di.DaggerBranchComponent
 import dev.eastar.branch2.model.BranchEntity
 import dev.eastar.branch2.model.getInfo
-import dev.eastar.branch2.model.poiIcon
+import dev.eastar.branch2.model.poi
 import dev.eastar.ktx.alert
 import dev.eastar.ktx.negativeButton
 import dev.eastar.ktx.positiveButton
 import eastar.base.BFragment
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPOIItem.CalloutBalloonButtonType
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
-import javax.inject.Inject
 import kotlin.coroutines.resume
 
 class BranchMap : BFragment() {
@@ -58,11 +53,6 @@ class BranchMap : BFragment() {
         BranchMapBinding.inflate(inflater, container, false).let {
             bb = it
             it.vm = vm
-            DaggerBranchComponent.builder()
-                .application(inflater.context.applicationContext as Application)
-//            .activity(requireActivity())
-                .build()
-                .inject(vm)
 
             it.root
         }
@@ -120,20 +110,6 @@ class BranchMap : BFragment() {
             }
     }
 
-
-    private val BranchEntity.poi: MapPOIItem
-        get() = MapPOIItem().apply {
-            itemName = name
-            mapPoint = MapPoint.mapPointWithGeoCoord(lat, lon)
-            markerType = MapPOIItem.MarkerType.CustomImage
-            showAnimationType = MapPOIItem.ShowAnimationType.NoAnimation
-            isShowCalloutBalloonOnTouch = true
-            isShowDisclosureButtonOnCalloutBalloon = true
-            customImageResourceId = poiIcon
-            isCustomImageAutoscale = false
-            isDraggable = false
-            userObject = this@poi
-        }
 
     //현재위치 추적모드
     private fun moveCurrentPosition() {

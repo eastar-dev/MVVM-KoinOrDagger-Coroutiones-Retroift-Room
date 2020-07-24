@@ -36,10 +36,10 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/find"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:minWidth="50dp"
             android:scaleType="center"
-            android:src="@drawable/ic_search"
+            android:src="@drawable/ic_find"
             app:layout_constraintBottom_toBottomOf="@+id/keyword"
             app:layout_constraintEnd_toEndOf="@+id/keyword"
             app:layout_constraintTop_toTopOf="@+id/keyword" />

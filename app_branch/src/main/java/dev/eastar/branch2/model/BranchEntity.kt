@@ -2,11 +2,11 @@ package dev.eastar.branch2.model
 
 import android.location.Location
 import android.log.Log
-import androidx.annotation.DrawableRes
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import dev.eastar.branch.R
+import net.daum.mf.map.api.MapPOIItem
+import net.daum.mf.map.api.MapPoint
 import java.util.*
 
 @Entity(tableName = "branch")
@@ -41,21 +41,32 @@ data class BranchEntity(
 }
 
 
-val BranchEntity.icon: Int
-    @DrawableRes
+//val BranchEntity.icon: Int
+//    @DrawableRes
+//    get() = when (branch_type) {
+//        "지점" -> R.drawable.ic_hana
+//        "우체국", "브랜드ATM", "점외자동화" -> R.drawable.ic_atm
+//        else -> R.drawable.ic_atm
+//    }
+
+val BranchEntity.poiIcon: MapPOIItem.MarkerType
     get() = when (branch_type) {
-        "지점" -> R.drawable.ic_hana
-        "우체국", "브랜드ATM", "점외자동화" -> R.drawable.ic_atm
-        else -> R.drawable.ic_atm
+        "지점" -> MapPOIItem.MarkerType.BluePin
+        "우체국" -> MapPOIItem.MarkerType.RedPin
+        "브랜드ATM", "점외자동화" -> MapPOIItem.MarkerType.YellowPin
+        else -> MapPOIItem.MarkerType.YellowPin
     }
 
-val BranchEntity.poiIcon: Int
-    @DrawableRes
-    get() = when (branch_type) {
-        "지점" -> R.drawable.icon_pin_branch_hana
-        "우체국" -> R.drawable.icon_pin_branch_post
-        "브랜드ATM", "점외자동화" -> R.drawable.poi_atm
-        else -> R.drawable.icon_pin_branch_auto
+val BranchEntity.poi: MapPOIItem
+    get() = MapPOIItem().apply {
+        itemName = name
+        mapPoint = MapPoint.mapPointWithGeoCoord(lat, lon)
+        markerType = this@poi.poiIcon
+        showAnimationType = MapPOIItem.ShowAnimationType.NoAnimation
+        isShowCalloutBalloonOnTouch = true
+        isShowDisclosureButtonOnCalloutBalloon = true
+        isDraggable = false
+        userObject = this@poi
     }
 
 fun BranchEntity.getInfo(): String {

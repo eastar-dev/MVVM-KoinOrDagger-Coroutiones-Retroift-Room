@@ -8,9 +8,6 @@ import dev.eastar.branch2.model.BranchEntity
 
 @Dao
 interface BranchDao {
-    @Query("SELECT * FROM branch ")
-    suspend fun getBranch(): List<BranchEntity>
-
     @Query("SELECT * FROM branch WHERE address LIKE :keyword")
     suspend fun getBranchByKeyword(keyword: String): List<BranchEntity>
 

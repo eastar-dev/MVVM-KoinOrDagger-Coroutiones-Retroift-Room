@@ -27,7 +27,7 @@
             android:layout_marginTop="32dp"
             android:alpha=".8"
             android:foreground="?attr/selectableItemBackground"
-            android:src="@drawable/btn_map_location_icon"
+            android:src="@drawable/ic_current_location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

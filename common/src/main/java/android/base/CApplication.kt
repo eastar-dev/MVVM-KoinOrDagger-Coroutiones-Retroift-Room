@@ -7,4 +7,3 @@ abstract class CApplication : Application() {
         CD.application = this
     }
 }
-//abstract class CApplication : android.app.Application()
